@@ -1,46 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
   <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>login</title>
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>로그인 - 아무 말 대잔치</title>
+    <link rel="stylesheet" href="../../components/header/header.css" />
+    <link rel="stylesheet" href="./login.css" />
   </head>
-
   <body>
-    <div class="container">
-      <header class="header">
-        <h1>아무 말 대잔치</h1>
-      </header>
+    <div id="header-container"></div>
 
-      <main class="login-container">
+    <main class="main-content">
+      <div class="login-container">
         <h2 class="login-title">로그인</h2>
-
-        <form class="login-form">
+        <form id="login-form" class="login-form" novalidate>
           <div class="form-group">
-            <label for="email">이메일</label>
-            <input type="email" id="email" placeholder="이메일을 입력하세요." />
-          </div>
-
-          <div class="form-group">
-            <label for="password">비밀번호</label>
+            <label for="email" class="form-label">이메일</label>
             <input
-              type="password"
-              id="password"
-              placeholder="비밀번호를 입력하세요."
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              required
+              class="form-input"
+              placeholder="이메일을 입력하세요"
             />
+            <p id="email-error" class="error-message"></p>
           </div>
-
-          <div class="btn-container">
-            <button type="submit" class="login-btn">로그인</button>
-            <a href="../signup/signup.html" class="signup-btn">회원가입</a>
+          <div class="form-group">
+            <label for="password" class="form-label">비밀번호</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              required
+              class="form-input"
+              placeholder="비밀번호를 입력하세요"
+            />
+            <p id="password-error" class="error-message"></p>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">로그인</button>
           </div>
         </form>
-      </main>
-    </div>
+        <button id="signup-button" class="btn btn-secondary">회원가입</button>
+      </div>
+    </main>
 
-    <script src="" async defer></script>
+    <script src="./login.js"></script>
   </body>
 </html>
