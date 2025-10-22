@@ -1,0 +1,65 @@
+/* item.css
+  버튼, 인풋 등 공용으로 사용될 컴포넌트 스타일
+*/
+
+:root {
+  --primary-color: #7c4dff; /* 메인 보라색 */
+  --primary-color-light: #b39ddb;
+  --disabled-color: #e0e0e0; /* 비활성화 회색 */
+  --error-color: #d32f2f; /* 에러 빨간색 */
+  --text-color: #212121;
+  --text-light-color: #757575;
+  --border-color: #bdbdbd;
+  --background-color: #f5f5f5;
+  --white-color: #ffffff;
+}
+
+/* 폼 입력창 (Input) */
+.form-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box; /* 패딩 포함 */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px var(--primary-color-light);
+}
+
+/* 유효성 검사 실패 시 */
+.form-input.error {
+  border-color: var(--error-color);
+}
+.form-input.error:focus {
+  box-shadow: 0 0 0 2px #ffcdd2;
+}
+
+/* 폼 버튼 (Button) */
+.form-button {
+  width: 100%;
+  padding: 14px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.form-button:hover:not(:disabled) {
+  background-color: #651fff;
+}
+
+/* 비활성화 상태 */
+.form-button:disabled {
+  background-color: var(--disabled-color);
+  color: var(--text-light-color);
+  cursor: not-allowed;
+}
