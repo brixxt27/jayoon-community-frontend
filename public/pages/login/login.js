@@ -102,7 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
           sessionStorage.setItem("accessToken", responseData.data.accessToken);
           sessionStorage.setItem("user", JSON.stringify(responseData.data));
 
-          alert("로그인에 성공했습니다. 메인 페이지로 이동합니다.");
           window.location.href = "../main/main.html";
         } else {
           passwordError.textContent =
