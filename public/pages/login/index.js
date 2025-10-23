@@ -1,7 +1,7 @@
 import { login } from "../../api/api.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("/components/header/header.html")
+  fetch("/components/header/index.html")
     .then((response) => {
       if (!response.ok) {
         throw new Error("네트워크 응답이 올바르지 않습니다.");
@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
    */
   if (signupButton) {
     signupButton.addEventListener("click", () => {
-      window.location.href = "../signup/signup.html";
+      window.location.href = "/pages/signup";
     });
   }
 
