@@ -304,8 +304,9 @@ async function handleSubmit(event) {
 
     localStorage.setItem("token", token);
     console.log("회원가입 성공:", response);
-    alert("회원가입에 성공했습니다! 메인 페이지로 이동합니다.");
-    location.href = "../main/main.html";
+    // alert("회원가입에 성공했습니다! 메인 페이지로 이동합니다.");
+    // UX를 위해 alert가 아닌 다른 것으로 대체하자.
+    location.href = "/";
   } catch (error) {
     console.error("회원가입 실패:", error);
     const errorData = error.data;

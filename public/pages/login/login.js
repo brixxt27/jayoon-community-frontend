@@ -1,7 +1,7 @@
 import { login } from "../../api/api.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("../../components/header/header.html")
+  fetch("/components/header/header.html")
     .then((response) => {
       if (!response.ok) {
         throw new Error("네트워크 응답이 올바르지 않습니다.");
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
           sessionStorage.setItem("accessToken", responseData.data.accessToken);
           sessionStorage.setItem("user", JSON.stringify(responseData.data));
 
-          window.location.href = "../main/main.html";
+          window.location.href = "/";
         } else {
           passwordError.textContent =
             responseData.message || "로그인에 실패했습니다.";
