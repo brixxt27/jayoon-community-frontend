@@ -15,7 +15,7 @@ const DEFAULT_PROFILE_IMAGE = '/assets/images/default-profile.png';
  */
 export function initHeader(options = { type: 'default' }) {
   const { type, backUrl } = options;
-  const backButton = document.getElementById('header=back-button');
+  const backButton = document.getElementById('header-back-button');
   const profileContainer = document.getElementById('header-profile-container');
 
   if (type === 'backButton' && backButton) {
