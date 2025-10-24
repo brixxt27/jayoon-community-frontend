@@ -1,30 +1,112 @@
 body,
 h1 {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 .site-header {
-  width: 100%;
-  background-color: #ffffff;
-  padding: 1rem 1.5rem; /* 16px 24px */
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  position: fixed; /* 헤더를 상단에 고정 */
-  top: 0;
-  left: 0;
-  z-index: 1000;
+	width: 100%;
+	background-color: #ffffff;
+	padding: 1rem 1.5rem; /* 16px 24px */
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+	position: fixed; /* 헤더를 상단에 고정 */
+	top: 0;
+	left: 0;
+	z-index: 1000;
 }
 
 .header-container {
-  max-width: 1280px;
-  margin-left: auto;
-  margin-right: auto;
+	max-width: 1280px;
+	margin-left: auto;
+	margin-right: auto;
+
+	/* ★ 핵심: Flexbox로 정렬 */
+	display: flex;
+	justify-content: space-between; /* 요소들을 양쪽 끝과 중앙으로 분산 */
+	align-items: center; /* 세로 중앙 정렬 */
+	position: relative; /* 드롭다운 메뉴의 기준점 */
+	height: 56px; /* 헤더 높이 고정 (예시) */
 }
 
 .site-title {
-  font-size: 1.5rem; /* 24px */
-  font-weight: 700;
-  color: #1f2937; /* 진한 회색 */
-  text-align: center;
+	font-size: 1.5rem; /* 24px */
+	font-weight: 700;
+	color: #1f2937;
+
+	/* ★ 핵심: 양쪽에 버튼이 있어도 중앙을 차지하도록 */
+	/* 방법 1: 중앙 정렬 유지 (버튼 크기만큼 패딩주기) */
+	/* text-align: center; flex-grow: 1; */
+
+	/* 방법 2: (추천) 제목을 중앙에 절대 배치 */
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	margin: 0; /* h1 기본 마진 제거 */
+}
+
+/* 모든 헤더 버튼 (뒤로가기, 프로필) 공통 스타일 */
+.header-button {
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #1f2937;
+	z-index: 10; /* 타이틀보다 위에 */
+}
+
+/* 뒤로가기 버튼은 왼쪽에 위치 */
+#header-back-button {
+	/* position: absolute; left: 0; 대신 flex-start를 사용 */
+}
+
+/* 프로필 컨테이너는 오른쪽에 위치 */
+.profile-container {
+	position: relative; /* 드롭다운의 기준점 */
+	z-index: 10;
+}
+
+#header-profile-image {
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	object-fit: cover; /* 이미지가 찌그러지지 않게 */
+	border: 1px solid #eee;
+}
+
+/* 프로필 드롭다운 메뉴 */
+.profile-dropdown {
+	position: absolute;
+	top: 120%; /* 프로필 이미지 바로 아래 */
+	right: 0;
+	background-color: white;
+	border-radius: 8px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	width: 160px; /* 메뉴 넓이 */
+	z-index: 1100; /* 헤더(1000)보다 높게 */
+	display: flex;
+	flex-direction: column;
+	overflow: hidden; /* border-radius 적용 */
+}
+
+.profile-dropdown a {
+	padding: 0.75rem 1rem; /* 12px 16px */
+	text-decoration: none;
+	color: #374151;
+	font-size: 0.875rem; /* 14px */
+}
+
+.profile-dropdown a:hover {
+	background-color: #f3f4f6; /* 옅은 회색 */
+}
+
+/* space-between을 위해 가짜 요소 추가 (CSS 트릭) */
+.header-container::before,
+.header-container::after {
+	content: '';
+	flex-basis: 40px; /* 버튼 크기만큼 공간 확보 (조절 필요) */
+	flex-shrink: 0;
 }

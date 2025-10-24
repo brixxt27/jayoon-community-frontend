@@ -1,166 +1,143 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>회원가입 - 아무 말 대잔치</title>
-    <!-- 공용 컴포넌트 스타일 -->
-    <link rel="stylesheet" href="/components/item/index.css" />
-    <!-- 회원가입 페이지 전용 스타일 -->
-    <link rel="stylesheet" href="/pages/signup/index.css" />
-    <!-- JS 파일 (defer로 HTML 파싱 후 실행) -->
-    <script type="module" src="/pages/signup/index.js" defer></script>
-  </head>
-  <body>
-    <!-- 3번: 뒤로가기 헤더 (z-index: 10) -->
-    <header class="header-bar">
-      <!-- [수정] button -> a 태그로 변경 -->
-      <a
-        href="/pages/login/"
-        class="back-button"
-        aria-label="로그인 페이지로 돌아가기"
-      >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M15.41 7.41L14 6L8 12L14 18L15.41 16.59L10.83 12L15.41 7.41Z"
-            fill="currentColor"
-          />
-        </svg>
-      </a>
-      <h1 class="header-title">아무 말 대잔치</h1>
-    </header>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>회원가입 - 아무 말 대잔치</title>
+		<link rel="stylesheet" href="/components/header/index.css" />
+		<link rel="stylesheet" href="/components/item/index.css" />
+		<link rel="stylesheet" href="/pages/signup/index.css" />
 
-    <!-- 메인 콘텐츠 (z-index: 1) -->
-    <main class="signup-container">
-      <h2 class="signup-title">회원가입</h2>
+		<script type="module" src="/pages/signup/index.js" defer></script>
+	</head>
+	<body>
+		<div id="header-placeholder"></div>
 
-      <form id="signup-form" novalidate>
-        <!-- 4번: 프로필 사진 -->
-        <div class="profile-group">
-          <label for="profile-image-input" class="form-label"
-            >프로필 사진</label
-          >
-          <!-- [수정] 불필요한 helper-text 삭제 -->
-          <!-- 실제 파일 인풋 (숨김) -->
-          <input type="file" id="profile-image-input" accept="image/*" />
+		<!-- 메인 콘텐츠 (z-index: 1) -->
+		<main class="signup-container">
+			<h2 class="signup-title">회원가입</h2>
 
-          <!-- 이미지 미리보기 및 클릭 영역 -->
-          <div
-            id="profile-preview"
-            class="profile-preview"
-            role="button"
-            tabindex="0"
-            aria-label="프로필 사진 업로드"
-          >
-            <!-- [신규] 이미지 삭제 버튼 (평소엔 숨김) -->
-            <button
-              type="button"
-              id="profile-remove-button"
-              class="profile-remove-button"
-              aria-label="프로필 사진 삭제"
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
-                  fill="currentColor"
-                />
-              </svg>
-            </button>
-            <!-- 기본 아이콘 -->
-            <svg
-              width="40"
-              height="40"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M19 13H13V19H11V13H5V11H11V5H13V11H19V13Z" fill="#888" />
-            </svg>
-          </div>
-        </div>
+			<form id="signup-form" novalidate>
+				<!-- 4번: 프로필 사진 -->
+				<div class="profile-group">
+					<label for="profile-image-input" class="form-label"
+						>프로필 사진</label
+					>
+					<!-- [수정] 불필요한 helper-text 삭제 -->
+					<!-- 실제 파일 인풋 (숨김) -->
+					<input type="file" id="profile-image-input" accept="image/*" />
 
-        <!-- 1번: 입력 폼 그룹 -->
-        <div class="form-group">
-          <label for="email" class="form-label">이메일*</label>
-          <input
-            type="email"
-            id="email"
-            class="form-input"
-            placeholder="이메일을 입력하세요"
-            required
-          />
-          <p id="email-helper" class="helper-text" aria-live="polite"></p>
-        </div>
+					<!-- 이미지 미리보기 및 클릭 영역 -->
+					<div
+						id="profile-preview"
+						class="profile-preview"
+						role="button"
+						tabindex="0"
+						aria-label="프로필 사진 업로드"
+					>
+						<!-- [신규] 이미지 삭제 버튼 (평소엔 숨김) -->
+						<button
+							type="button"
+							id="profile-remove-button"
+							class="profile-remove-button"
+							aria-label="프로필 사진 삭제"
+						>
+							<svg
+								width="16"
+								height="16"
+								viewBox="0 0 24 24"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
+									fill="currentColor"
+								/>
+							</svg>
+						</button>
+						<!-- 기본 아이콘 -->
+						<svg
+							width="40"
+							height="40"
+							viewBox="0 0 24 24"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<path d="M19 13H13V19H11V13H5V11H11V5H13V11H19V13Z" fill="#888" />
+						</svg>
+					</div>
+				</div>
 
-        <div class="form-group">
-          <label for="password" class="form-label">비밀번호*</label>
-          <input
-            type="password"
-            id="password"
-            class="form-input"
-            placeholder="비밀번호를 입력하세요"
-            required
-          />
-          <p id="password-helper" class="helper-text" aria-live="polite"></p>
-        </div>
+				<!-- 1번: 입력 폼 그룹 -->
+				<div class="form-group">
+					<label for="email" class="form-label">이메일*</label>
+					<input
+						type="email"
+						id="email"
+						class="form-input"
+						placeholder="이메일을 입력하세요"
+						required
+					/>
+					<p id="email-helper" class="helper-text" aria-live="polite"></p>
+				</div>
 
-        <div class="form-group">
-          <label for="password-confirm" class="form-label"
-            >비밀번호 확인*</label
-          >
-          <input
-            type="password"
-            id="password-confirm"
-            class="form-input"
-            placeholder="비밀번호를 한 번 더 입력하세요"
-            required
-          />
-          <p
-            id="password-confirm-helper"
-            class="helper-text"
-            aria-live="polite"
-          ></p>
-        </div>
+				<div class="form-group">
+					<label for="password" class="form-label">비밀번호*</label>
+					<input
+						type="password"
+						id="password"
+						class="form-input"
+						placeholder="비밀번호를 입력하세요"
+						required
+					/>
+					<p id="password-helper" class="helper-text" aria-live="polite"></p>
+				</div>
 
-        <div class="form-group">
-          <label for="nickname" class="form-label">닉네임*</label>
-          <input
-            type="text"
-            id="nickname"
-            class="form-input"
-            placeholder="닉네임을 입력하세요 (10자 이내, 띄어쓰기 불가)"
-            required
-            maxlength="10"
-          />
-          <p id="nickname-helper" class="helper-text" aria-live="polite"></p>
-        </div>
+				<div class="form-group">
+					<label for="password-confirm" class="form-label"
+						>비밀번호 확인*</label
+					>
+					<input
+						type="password"
+						id="password-confirm"
+						class="form-input"
+						placeholder="비밀번호를 한 번 더 입력하세요"
+						required
+					/>
+					<p
+						id="password-confirm-helper"
+						class="helper-text"
+						aria-live="polite"
+					></p>
+				</div>
 
-        <div class="form-group form-actions">
-          <button type="submit" id="signup-button" class="form-button" disabled>
-            회원가입
-          </button>
-        </div>
-      </form>
+				<div class="form-group">
+					<label for="nickname" class="form-label">닉네임*</label>
+					<input
+						type="text"
+						id="nickname"
+						class="form-input"
+						placeholder="닉네임을 입력하세요 (10자 이내, 띄어쓰기 불가)"
+						required
+						maxlength="10"
+					/>
+					<p id="nickname-helper" class="helper-text" aria-live="polite"></p>
+				</div>
 
-      <!-- 2번: 로그인하러 가기 -->
-      <div class="login-prompt">
-        <span>이미 계정이 있으신가요?</span>
-        <a href="/pages/login" id="login-link" class="login-link"
-          >로그인하러 가기</a
-        >
-      </div>
-    </main>
-  </body>
+				<div class="form-group form-actions">
+					<button type="submit" id="signup-button" class="form-button" disabled>
+						회원가입
+					</button>
+				</div>
+			</form>
+
+			<!-- 2번: 로그인하러 가기 -->
+			<div class="login-prompt">
+				<span>이미 계정이 있으신가요?</span>
+				<a href="/pages/login" id="login-link" class="login-link"
+					>로그인하러 가기</a
+				>
+			</div>
+		</main>
+	</body>
 </html>
