@@ -5,7 +5,7 @@
  * login, signup 함수 모두 fetch를 사용합니다.
  */
 
-const BASE_URL = "http://localhost:8080";
+const BASE_URL = 'http://localhost:8080';
 
 /**
  * API 호출 후 응답을 처리하는 헬퍼 함수
@@ -22,7 +22,7 @@ async function handleResponse(response) {
 
   if (!response.ok) {
     // 백엔드에서 { message: "...", field: "..." } 형식으로 에러를 준다고 가정
-    const error = new Error(data.message || "API 요청 실패");
+    const error = new Error(data.message || 'API 요청 실패');
     error.status = response.status;
     error.data = data; // { message, field } 등이 담김
     throw error;
@@ -40,9 +40,9 @@ async function handleResponse(response) {
 export const login = async (email, password) => {
   try {
     const response = await fetch(`${BASE_URL}/auth`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ email, password }),
     });
@@ -56,7 +56,7 @@ export const login = async (email, password) => {
       throw error;
     }
     // fetch 자체의 네트워크 실패
-    throw new Error("서버와 통신할 수 없습니다.");
+    throw new Error('서버와 통신할 수 없습니다.');
   }
 };
 
@@ -69,10 +69,10 @@ export const login = async (email, password) => {
 export async function getPreSignedUrl(filename, contentType) {
   const queryParams = new URLSearchParams({
     filename,
-    "content-type": contentType,
+    'content-type': contentType,
   });
   const response = await fetch(
-    `${BASE_URL}/images/pre-signed-url?${queryParams}`
+    `${BASE_URL}/images/pre-signed-url?${queryParams}`,
   );
   return handleResponse(response);
 }
@@ -85,15 +85,15 @@ export async function getPreSignedUrl(filename, contentType) {
  */
 export async function uploadFileToUrl(url, file, contentType) {
   const response = await fetch(url, {
-    method: "PUT",
+    method: 'PUT',
     body: file,
     headers: {
-      "Content-Type": contentType,
+      'Content-Type': contentType,
     },
   });
 
   if (!response.ok) {
-    throw new Error("파일 업로드에 실패했습니다.");
+    throw new Error('파일 업로드에 실패했습니다.');
   }
   return;
 }
@@ -109,12 +109,12 @@ export async function signupWithUrl(
   email,
   password,
   nickname,
-  profileImageUrl
+  profileImageUrl,
 ) {
   const response = await fetch(`${BASE_URL}/users`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email, password, nickname, profileImageUrl }),
   });
