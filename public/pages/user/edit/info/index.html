@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원정보수정 - 아무 말 대잔치</title>
+    <link rel="stylesheet" href="/components/item/index.css" />
+    <link rel="stylesheet" href="/components/header/index.css" />
+    <link rel="stylesheet" href="/pages/user/edit/info/index.css" />
+
+    <script type="module" src="/utils/loadComponent.js" defer></script>
+    <script type="module" src="/api/api.js" defer></script>
+    <script type="module" src="/pages/user/edit/info/index.js" defer></script>
+  </head>
+  <body>
+    <header id="header"></header>
+
+    <main class="edit-info-container">
+      <h2 class="form-title">회원정보수정</h2>
+
+      <!-- 프로필 사진 변경 -->
+      <div class="profile-image-wrapper">
+        <img
+          id="profile-preview"
+          src="/assets/images/default-profile.png"
+          alt="프로필 이미지 미리보기"
+        />
+        <label for="profile-image-input" class="profile-edit-button"
+          >변경</label
+        >
+        <input type="file" id="profile-image-input" accept="image/*" />
+      </div>
+
+      <!-- 정보 수정 폼 -->
+      <form id="edit-info-form">
+        <!-- 이메일 (disabled) -->
+        <div class="form-group">
+          <label for="email-input">이메일</label>
+          <input type="email" id="email-input" class="form-input" disabled />
+        </div>
+
+        <!-- 닉네임 -->
+        <div class="form-group">
+          <label for="nickname-input">닉네임*</label>
+          <input
+            type="text"
+            id="nickname-input"
+            class="form-input"
+            maxlength="10"
+            required
+          />
+          <p class="helper-text error" id="nickname-helper-text"></p>
+        </div>
+
+        <!-- 수정하기 버튼 -->
+        <button type="button" id="submit-button" class="form-button">
+          수정하기
+        </button>
+      </form>
+
+      <!-- 회원 탈퇴 버튼 -->
+      <button type="button" id="withdraw-button" class="withdraw-button">
+        회원 탈퇴
+      </button>
+    </main>
+
+    <!-- 회원 탈퇴 모달 -->
+    <div class="modal-backdrop" id="modal-backdrop">
+      <div class="modal-content" id="withdraw-modal">
+        <h3 class="modal-title">회원 탈퇴 하시겠습니까?</h3>
+        <p class="modal-body">작성된 게시글과 댓글은 삭제됩니다.</p>
+        <div class="modal-actions">
+          <button class="modal-button cancel" id="withdraw-cancel-btn">
+            취소
+          </button>
+          <button class="modal-button confirm" id="withdraw-confirm-btn">
+            확인
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 수정 완료 토스트 -->
+    <div class="toast-popup" id="toast-popup">수정 완료</div>
+  </body>
+</html>

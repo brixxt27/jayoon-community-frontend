@@ -1,0 +1,203 @@
+/* 페이지 컨테이너 */
+.edit-info-container {
+  max-width: 480px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: var(--white-color, #fff);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.form-title {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* 프로필 이미지 */
+.profile-image-wrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 30px;
+  border-radius: 50%;
+}
+
+#profile-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid var(--border-color, #ddd);
+}
+
+.profile-edit-button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: var(--text-color, #333);
+  color: var(--white-color, #fff);
+  padding: 6px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 2px solid var(--white-color, #fff);
+  transition: background-color 0.2s;
+}
+.profile-edit-button:hover {
+  background-color: #555;
+}
+
+#profile-image-input {
+  display: none;
+}
+
+/* 폼 그룹 */
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-color, #333);
+}
+
+/* 닉네임 헬퍼 텍스트 */
+.helper-text {
+  font-size: 13px;
+  margin-top: 8px;
+  display: block;
+  visibility: hidden; /* JS로 제어 */
+}
+.helper-text.error {
+  color: var(--error-color, #e53e3e);
+}
+
+/* 회원 탈퇴 버튼 */
+.withdraw-button {
+  display: block;
+  width: auto;
+  margin: 20px auto 0;
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: var(--text-light-color, #888);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.withdraw-button:hover {
+  color: var(--error-color, #e53e3e);
+}
+
+/* --- 모달 (detail 페이지와 동일) --- */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.modal-backdrop.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal-content {
+  background-color: var(--white-color, #fff);
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transform: scale(0.95);
+  transition: transform 0.2s ease;
+}
+
+.modal-backdrop.visible .modal-content {
+  transform: scale(1);
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.modal-body {
+  font-size: 16px;
+  color: var(--text-light-color, #666);
+  margin-bottom: 30px;
+  text-align: center;
+  white-space: pre-wrap; /* \n 줄바꿈 적용 */
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.modal-button {
+  flex-grow: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.modal-button.cancel {
+  background-color: #4b5563;
+  color: var(--white-color, #fff);
+}
+.modal-button.cancel:hover {
+  background-color: #374151;
+}
+
+.modal-button.confirm {
+  background-color: var(--primary-color, #7c4dff);
+  color: var(--white-color, #fff);
+}
+.modal-button.confirm:hover {
+  background-color: #651fff;
+}
+
+/* --- 토스트 메시지 --- */
+.toast-popup {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.75);
+  color: var(--white-color, #fff);
+  padding: 12px 20px;
+  border-radius: 20px;
+  font-size: 15px;
+  z-index: 2000;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease, bottom 0.3s ease;
+}
+
+.toast-popup.show {
+  visibility: visible;
+  opacity: 1;
+  bottom: 50px;
+}
