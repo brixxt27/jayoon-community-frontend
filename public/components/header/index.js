@@ -3,35 +3,41 @@ const DEFAULT_PROFILE_IMAGE = '/assets/images/default-profile.png';
 /**
  * @param {object} options
  * @param {'default'|'backButton'|'profile'} options.type - 헤더 타입
- * @param {string} [options.backUrl] - (type 'BackButton'일 때) 뒤로가기 URL)
- *
- * options.type에 따라 헤더의 동작을 초기화합니다.
- * default: 아무 것도 보여주지 않습니다.
- *
- * profile: 프로필 이미지를 보여줍니다.
- * 로그인 안 되는데 "profile" 타입을 요청 시 현재는 숨기는 형식으로 진행합니다.
- * 지금으로써는 비공개 커뮤니티로 기획 했는데 솔직히 의도가 불분명해서 나중에 다시 논의가 필요합니다.
- * 이후에 로그인 버튼으로 변경 가능합니다.
+ * @param {string} [options.backUrl] - (type 'backButton'일 때) 뒤로가기 URL
  */
 export function initHeader(options = { type: 'default' }) {
   const { type, backUrl } = options;
   const backButton = document.getElementById('header-back-button');
   const profileContainer = document.getElementById('header-profile-container');
 
-  if (type === 'backButton' && backButton) {
-    backButton.style.display = 'flex'; // 왜 block 대신 flex야? backButton도 로그인 때는 안 보임
+  if (!backButton || !profileContainer) {
+    console.error('헤더의 필수 요소(뒤로가기, 프로필)를 찾을 수 없습니다.');
+    return;
+  }
+
+  // ★ 수정: display 대신 visibility 사용
+  // CSS에서 기본적으로 hidden으로 설정되어 있으므로, 필요한 것만 visible로 변경
+  if (type === 'backButton') {
+    backButton.style.visibility = 'visible';
     if (backUrl) {
       backButton.href = backUrl;
+    } else {
+      // backUrl이 없으면, 브라우저의 '뒤로가기' 기능 사용
+      backButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.history.back();
+      });
     }
-  } else if (type === 'profile' && profileContainer) {
-    profileContainer.style.display = 'block';
-
+  } else if (type === 'profile') {
     if (checkLoginStatus()) {
+      profileContainer.style.visibility = 'visible';
       setupProfileSection();
     } else {
-      profileContainer.style.display = 'none';
+      // 로그인 상태가 아니면 CSS 기본값(hidden) 유지
+      profileContainer.style.visibility = 'hidden';
     }
   }
+  // 'default' 타입이면 아무것도 안 함 (CSS 기본값인 hidden 유지)
 }
 
 function setupProfileSection() {
@@ -60,9 +66,9 @@ function setupProfileSection() {
   });
 
   logoutButton.addEventListener('click', (event) => {
-    event.preventDefault(); // Todo a 태그 기본 동작인 링크 이동을 방지한다는데 왜 그런거지?
-
+    event.preventDefault(); // a 태그의 기본 동작(페이지 이동) 방지
     localStorage.removeItem('token');
+    localStorage.removeItem('profileImageUrl'); // 로그아웃 시 프로필 이미지 URL도 제거
     console.log('Logging out...');
     window.location.href = '/pages/login';
   });
@@ -72,16 +78,18 @@ function loadProfileImage() {
   const profileImageEl = document.getElementById('header-profile-image');
   if (!profileImageEl) return;
 
-  // ToDo: 실제 프로필 이미지 URL을 가져오는 로직으로 대체 필요
   const profileImageUrl = localStorage.getItem('profileImageUrl');
-  if (profileImageUrl) {
+
+  // ★ 수정: profileImageUrl이 null 또는 빈 문자열("")이 아닌지 명확하게 확인
+  if (profileImageUrl && profileImageUrl.trim() !== '') {
     profileImageEl.src = profileImageUrl;
   } else {
     profileImageEl.src = DEFAULT_PROFILE_IMAGE;
   }
 
-  // profileImageEl.src = profileImageUrl이 잘못된 URL일 경우 기본 이미지로 대체
+  // profileImageEl.src가 잘못된 URL일 경우 기본 이미지로 대체
   profileImageEl.onerror = () => {
+    console.warn('프로필 이미지 로드 실패. 기본 이미지로 대체합니다.');
     profileImageEl.src = DEFAULT_PROFILE_IMAGE;
   };
 }
@@ -91,5 +99,7 @@ function loadProfileImage() {
  * @returns {boolean} 로그인 여부
  */
 function checkLoginStatus() {
-  return !!localStorage.getItem('token'); // getItem은 null 또는 값을 반환하기 때문에 null을 false로 변경합니다.
+  // ★ 더미데이터를 사용할 때는 디버깅을 위해 임시로 true를 반환하게 할 수 있습니다.
+  return true; // (디버깅용)
+  // return !!localStorage.getItem('token'); // getItem은 null 또는 값을 반환하기 때문에 null을 false로 변경합니다.
 }

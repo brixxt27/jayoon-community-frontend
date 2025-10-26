@@ -26,7 +26,7 @@ h1 {
   justify-content: space-between; /* 요소들을 양쪽 끝과 중앙으로 분산 */
   align-items: center; /* 세로 중앙 정렬 */
   position: relative; /* 드롭다운 메뉴의 기준점 */
-  height: 56px; /* 헤더 높이 고정 (예시) */
+  height: 40px; /* 헤더 높이 고정 (56px은 조금 큰 것 같아 40px로 조절) */
 }
 
 .site-title {
@@ -36,7 +36,7 @@ h1 {
 
   /* 양쪽에 버튼이 있어도 중앙을 차지하도록 합니다 */
   text-align: center;
-  flex-grow: 1;
+  flex-grow: 1; /* ★ 중요: 남은 공간을 모두 차지 */
 }
 
 /* 모든 헤더 버튼 (뒤로가기, 프로필) 공통 스타일 */
@@ -52,19 +52,24 @@ h1 {
   z-index: 10; /* 타이틀보다 위에 */
 }
 
-/* 뒤로가기 버튼은 왼쪽에 위치 */
+/* ★ 수정: 뒤로가기 버튼은 왼쪽에 위치 (중앙 정렬용) */
 #header-back-button {
-  /* position: absolute; left: 0; 대신 flex-start를 사용 */
+  width: 40px; /* 아이콘 영역 확보 (아래 profile-container와 동일하게) */
+  flex-shrink: 0; /* 줄어들지 않음 */
+  visibility: hidden; /* ★ 기본 숨김 (공간은 차지) */
 }
 
-/* 프로필 컨테이너는 오른쪽에 위치 */
+/* ★ 수정: 프로필 컨테이너는 오른쪽에 위치 (중앙 정렬용) */
 .profile-container {
   position: relative; /* 드롭다운의 기준점 */
   z-index: 10;
-  margin-left: auto;
+  width: 40px; /* 아이콘 영역 확보 (위 back-button과 동일하게) */
+  flex-shrink: 0; /* 줄어들지 않음 */
+  visibility: hidden; /* ★ 기본 숨김 (공간은 차지) */
 }
 
-#header-profile-image {
+/* ★ 수정: CSS 충돌을 피하기 위해 선택자 구체화 */
+.profile-container #header-profile-image {
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -87,7 +92,9 @@ h1 {
   overflow: hidden; /* border-radius 적용 */
 }
 
+/* ★ 수정: display: block 추가 (가로 정렬 버그 수정) */
 .profile-dropdown a {
+  display: block; /* ★ 중요: 링크가 한 줄을 모두 차지하도록 */
   padding: 0.75rem 1rem; /* 12px 16px */
   text-decoration: none;
   color: #374151;
@@ -98,12 +105,4 @@ h1 {
   background-color: #f3f4f6; /* 옅은 회색 */
 }
 
-.header-spacer {
-  flex-basis: 65px; /* 버튼의 실제 너비에 맞춰주세요 */
-  flex-shrink: 0;
-}
-
-/* 프로필이 보일 때는 Spacer를 숨깁니다 (공간 차지 안함) */
-.profile-container:not([style*='display: none']) + .header-spacer {
-  display: none;
-}
+/* ★ 삭제: .header-spacer 불필요 */

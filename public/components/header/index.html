@@ -1,11 +1,7 @@
 <header class="site-header">
   <div class="header-container">
-    <a
-      href="#"
-      id="header-back-button"
-      class="header-button"
-      style="display: none"
-    >
+    <!-- ★ 수정: style="display: none" 제거. CSS에서 visibility로 제어합니다. -->
+    <a href="#" id="header-back-button" class="header-button">
       <svg
         width="24"
         height="24"
@@ -22,11 +18,8 @@
 
     <h1 class="site-title">아무 말 대잔치</h1>
 
-    <div
-      id="header-profile-container"
-      class="profile-container"
-      style="display: none"
-    >
+    <!-- ★ 수정: style="display: none" 제거. CSS에서 visibility로 제어합니다. -->
+    <div id="header-profile-container" class="profile-container">
       <button
         id="header-profile-button"
         class="header-button profile-button"
@@ -50,6 +43,6 @@
       </div>
     </div>
 
-    <div class="header-spacer"></div>
+    <!-- ★ 삭제: .header-spacer 불필요하여 제거 -->
   </div>
 </header>

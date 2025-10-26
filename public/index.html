@@ -1,11 +1,29 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>게시판</title>
+    <link rel="stylesheet" href="/components/item/index.css" />
+    <link rel="stylesheet" href="/components/header/index.css" />
+    <link rel="stylesheet" href="/pages/board/index.css" />
+    <script type="module" src="/pages/board/index.js" defer></script>
   </head>
   <body>
-    main
+    <header id="header-container"></header>
+
+    <main class="board-container">
+      <div class="board-header">
+        <h1>전체 게시글</h1>
+        <button id="create-post-btn" class="btn btn-primary">글쓰기</button>
+      </div>
+
+      <div id="post-list-container">
+        <!-- JS로 게시글 카드가 여기에 추가됩니다. -->
+      </div>
+
+      <!-- 4. 인피니티 스크롤 로딩 인디케이터 -->
+      <div id="loader" class="loader" style="display: none"></div>
+    </main>
   </body>
 </html>

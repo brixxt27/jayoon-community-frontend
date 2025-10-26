@@ -1,0 +1,184 @@
+body {
+  background-color: #f8f9fa; /* 밝은 배경색 */
+  padding-top: 80px;
+}
+
+.board-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.board-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.board-header h1 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* 글쓰기 버튼 (공통 btn 스타일 재사용 및 확장) */
+#create-post-btn {
+  /* .btn, .btn-primary 스타일은 ../../index.css 에 있다고 가정합니다. */
+  /* 만약 없다면, 여기에 기본 버튼 스타일을 추가하세요. */
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  background-color: #007bff; /* 예시 기본 색상 */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#create-post-btn:hover {
+  background-color: #0056b3; /* 예시 호버 색상 */
+}
+
+/* 게시글 카드 목록 */
+#post-list-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+/* 개별 게시글 카드 */
+.post-card {
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 1.25rem;
+  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.post-card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+.post-card-header {
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid #f1f3f5;
+  padding-bottom: 1rem;
+}
+
+.post-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #212529;
+  margin: 0 0 0.5rem 0;
+
+  /* 지시사항 2번: 제목 26자 이상 ... 처리 (JS에서도 처리하지만, CSS로 1줄 말줄임표 기본 적용) */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  /* JS에서 26자로 자른 후에도 혹시 모를 오버플로우를 대비 */
+  max-width: 100%;
+}
+
+.post-user {
+  font-size: 0.9rem;
+  color: #495057;
+  margin-bottom: 0;
+}
+
+.post-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+.post-stats {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: #868e96;
+  margin-bottom: 0.75rem;
+}
+
+.post-stats span {
+  display: flex;
+  align-items: center;
+}
+
+/* 아이콘 (간단한 CSS 아이콘) */
+.post-stats .icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.3rem;
+  /* 아이콘 색상 */
+  background-color: currentColor;
+  /* 간단한 아이콘 모양 (예: 하트, 댓글, 조회) */
+  /* 실제로는 SVG나 폰트 아이콘을 권장합니다. */
+}
+.icon.like {
+  /* 간단한 하트 모양 (더 나은 아이콘 필요) */
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>')
+    no-repeat center / contain;
+}
+.icon.comment {
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>')
+    no-repeat center / contain;
+}
+.icon.view {
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5C21.27 7.61 17 4.5 12 4.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>')
+    no-repeat center / contain;
+}
+
+.post-date {
+  font-size: 0.8rem;
+  color: #adb5bd;
+  text-align: right;
+}
+
+.post-user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* 8px */
+}
+
+.post-user-profile-img {
+  width: 28px; /* 예시 이미지와 유사하게 */
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #eee;
+}
+
+/* 로더 스타일 */
+.loader {
+  border: 5px solid #f3f3f3; /* Light grey */
+  border-top: 5px solid #007bff; /* Blue */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 2rem auto;
+  display: block;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
