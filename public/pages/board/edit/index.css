@@ -1,0 +1,90 @@
+/* 폼 컨테이너 */
+.form-container {
+  max-width: 768px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.form-title {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* 폼 그룹 */
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-color, #333); /* item.css 변수 사용 */
+}
+
+/* textarea 세부 사항 */
+.form-group textarea.form-input {
+  resize: vertical;
+  min-height: 200px;
+}
+
+/* 헬퍼 텍스트 */
+.helper-text {
+  font-size: 13px;
+  margin-top: 8px;
+  display: none; /* 기본 숨김 */
+}
+
+.helper-text.error {
+  color: var(--error-color, #e53e3e); /* item.css 변수 사용 */
+  display: block;
+  visibility: hidden;
+}
+
+/* 파일 업로드 */
+.file-upload-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.file-upload-wrapper input[type='file'] {
+  display: none;
+}
+
+.file-upload-button {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #f4f4f5;
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-color, #333);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.file-upload-button:hover {
+  background-color: #e9e9ed;
+}
+
+.file-upload-name {
+  font-size: 14px;
+  color: var(--text-light-color, #666);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 폼 제출 버튼 */
+.form-actions {
+  text-align: right;
+  margin-top: 30px;
+}
