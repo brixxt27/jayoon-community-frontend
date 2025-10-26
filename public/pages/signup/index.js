@@ -1,15 +1,6 @@
-/* [수정]
-  back-button이 <a> 태그로 변경되었으므로,
-  해당 버튼을 찾고 이벤트 리스너를 붙이던 코드를 제거합니다.
-  (다른 로직은 원래 HTML 구조와 ID를 기반으로 하므로 수정 불필요)
-*/
-import {
-  getPreSignedUrl,
-  uploadFileToUrl,
-  signupWithUrl,
-} from '../../api/api.js';
-import { loadComponent } from '../../utils/loadComponent.js';
-import { initHeader } from '../../components/header/index.js';
+import { getPreSignedUrl, uploadFileToUrl, signupWithUrl } from '/api/api.js';
+import { loadComponent } from '/utils/loadComponent.js';
+import { initHeader } from '/components/header/index.js';
 // todo: import 절대경로로 수정 가능?
 
 // --- DOM 요소 선택 ---
@@ -42,6 +33,49 @@ const validationState = {
   passwordConfirm: false,
   nickname: false,
 };
+
+// --- 이벤트 리스너 등록 ---
+document.addEventListener('DOMContentLoaded', async () => {
+  // 헤더 로드
+  try {
+    await loadComponent('#header', '/components/header/index.html');
+    initHeader({
+      backButton: true,
+      backUrl: '/pages/login/',
+    });
+  } catch (error) {
+    console.error('헤더 로딩 중 에러 발생:', error);
+  }
+
+  // 방어 코드: 요소가 존재하는지 확인
+  if (signupForm) {
+    emailInput.addEventListener('blur', validateEmail);
+    passwordInput.addEventListener('blur', validatePassword);
+    passwordInput.addEventListener('input', validatePassword); // 실시간 피드백
+    passwordConfirmInput.addEventListener('blur', validatePasswordConfirm);
+    passwordConfirmInput.addEventListener('input', validatePasswordConfirm); // 실시간 피드백
+    nicknameInput.addEventListener('blur', validateNickname);
+    nicknameInput.addEventListener('input', handleNicknameInput); // 띄어쓰기 실시간 제거
+
+    signupForm.addEventListener('submit', handleSubmit);
+  } else {
+    console.error('회원가입 폼을 찾을 수 없습니다.');
+    return; // 폼이 없으면 아무것도 실행 안 함
+  }
+
+  if (profilePreview) {
+    profilePreview.addEventListener('click', () => profileImageInput.click());
+  }
+
+  if (profileImageInput) {
+    profileImageInput.addEventListener('change', handleProfileImageChange);
+  }
+
+  // [신규] 삭제 버튼 이벤트 리스너
+  if (profileRemoveButton) {
+    profileRemoveButton.addEventListener('click', handleProfileRemove);
+  }
+});
 
 // --- 유효성 검사 헬퍼 함수 ---
 function updateValidationUI(inputEl, helperEl, message, isValid) {
@@ -327,7 +361,9 @@ async function handleSubmit(event) {
       validationState.nickname = false;
     } else {
       alert(
-        `회원가입 중 오류가 발생했습니다: ${error.message || '알 수 없는 오류'}`,
+        `회원가입 중 오류가 발생했습니다: ${
+          error.message || '알 수 없는 오류'
+        }`,
       );
     }
 
@@ -335,46 +371,3 @@ async function handleSubmit(event) {
     signupButton.textContent = '회원가입';
   }
 }
-
-// --- 이벤트 리스너 등록 ---
-document.addEventListener('DOMContentLoaded', async () => {
-  // 헤더 로드
-  try {
-    await loadComponent('#header-placeholder', '/components/header/index.html');
-    initHeader({
-      type: 'backButton',
-      backUrl: '/pages/login/',
-    });
-  } catch (error) {
-    console.error('헤더 로딩 중 에러 발생:', error);
-  }
-
-  // 방어 코드: 요소가 존재하는지 확인
-  if (signupForm) {
-    emailInput.addEventListener('blur', validateEmail);
-    passwordInput.addEventListener('blur', validatePassword);
-    passwordInput.addEventListener('input', validatePassword); // 실시간 피드백
-    passwordConfirmInput.addEventListener('blur', validatePasswordConfirm);
-    passwordConfirmInput.addEventListener('input', validatePasswordConfirm); // 실시간 피드백
-    nicknameInput.addEventListener('blur', validateNickname);
-    nicknameInput.addEventListener('input', handleNicknameInput); // 띄어쓰기 실시간 제거
-
-    signupForm.addEventListener('submit', handleSubmit);
-  } else {
-    console.error('회원가입 폼을 찾을 수 없습니다.');
-    return; // 폼이 없으면 아무것도 실행 안 함
-  }
-
-  if (profilePreview) {
-    profilePreview.addEventListener('click', () => profileImageInput.click());
-  }
-
-  if (profileImageInput) {
-    profileImageInput.addEventListener('change', handleProfileImageChange);
-  }
-
-  // [신규] 삭제 버튼 이벤트 리스너
-  if (profileRemoveButton) {
-    profileRemoveButton.addEventListener('click', handleProfileRemove);
-  }
-});

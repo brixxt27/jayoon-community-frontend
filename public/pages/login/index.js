@@ -1,22 +1,15 @@
-import { login } from '../../api/api.js';
+import { loadComponent } from '/utils/loadComponent.js';
+import { initHeader } from '/components/header/index.js';
+import { login } from '/api/api.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-  fetch('/components/header/index.html')
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('네트워크 응답이 올바르지 않습니다.');
-      }
-      return response.text();
-    })
-    .then((data) => {
-      const headerContainer = document.getElementById('header-container');
-      if (headerContainer) {
-        headerContainer.innerHTML = data;
-      }
-    })
-    .catch((error) => {
-      console.error('헤더를 불러오는 중 오류가 발생했습니다:', error);
-    });
+document.addEventListener('DOMContentLoaded', async () => {
+  // 헤더 로드
+  try {
+    await loadComponent('#header', '/components/header/index.html');
+    initHeader();
+  } catch (error) {
+    console.error('헤더 로딩 중 에러 발생:', error);
+  }
 
   const loginForm = document.getElementById('login-form');
   const emailInput = document.getElementById('email');

@@ -1,5 +1,5 @@
-import { loadComponent } from '../../utils/loadComponent.js';
-import { initHeader } from '../../components/header/index.js';
+import { loadComponent } from '/utils/loadComponent.js';
+import { initHeader } from '/components/header/index.js';
 // /pages/board/index.js
 // '게시물 목록' 페이지만을 위한 스크립트입니다.
 
@@ -80,9 +80,9 @@ const createPostBtn = document.getElementById('create-post-btn');
  */
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    await loadComponent('#header-container', '/components/header/index.html');
+    await loadComponent('#header', '/components/header/index.html');
     initHeader({
-      type: 'profile',
+      profile: true,
     });
   } catch (error) {
     console.error('헤더 로딩 중 에러 발생:', error);

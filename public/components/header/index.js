@@ -2,33 +2,35 @@ const DEFAULT_PROFILE_IMAGE = '/assets/images/default-profile.png';
 
 /**
  * @param {object} options
- * @param {'default'|'backButton'|'profile'} options.type - 헤더 타입
+ * @param {boolean} [options.backButton] - 뒤로가기 버튼 표시 여부
+ * @param {boolean} [options.profile] - 프로필 섹션 표시 여부
  * @param {string} [options.backUrl] - (type 'backButton'일 때) 뒤로가기 URL
  */
-export function initHeader(options = { type: 'default' }) {
-  const { type, backUrl } = options;
-  const backButton = document.getElementById('header-back-button');
+export function initHeader(options = { backButton: false, profile: false }) {
+  const { backButton, profile, backUrl } = options;
+  const backButtonEl = document.getElementById('header-back-button');
   const profileContainer = document.getElementById('header-profile-container');
 
-  if (!backButton || !profileContainer) {
+  if (!backButtonEl || !profileContainer) {
     console.error('헤더의 필수 요소(뒤로가기, 프로필)를 찾을 수 없습니다.');
     return;
   }
 
   // ★ 수정: display 대신 visibility 사용
   // CSS에서 기본적으로 hidden으로 설정되어 있으므로, 필요한 것만 visible로 변경
-  if (type === 'backButton') {
-    backButton.style.visibility = 'visible';
+  if (backButton) {
+    backButtonEl.style.visibility = 'visible';
     if (backUrl) {
-      backButton.href = backUrl;
+      backButtonEl.href = backUrl;
     } else {
       // backUrl이 없으면, 브라우저의 '뒤로가기' 기능 사용
-      backButton.addEventListener('click', (e) => {
+      backButtonEl.addEventListener('click', (e) => {
         e.preventDefault();
         window.history.back();
       });
     }
-  } else if (type === 'profile') {
+  }
+  if (profile) {
     if (checkLoginStatus()) {
       profileContainer.style.visibility = 'visible';
       setupProfileSection();
