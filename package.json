@@ -1,0 +1,13 @@
+{
+  "name": "community-frontend",
+  "version": "1.0.0",
+  "description": "커뮤니티 서비스 프론트엔드 Express 서버",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {}
+}
