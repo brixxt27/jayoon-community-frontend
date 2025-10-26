@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>게시글 작성 - 아무 말 대잔치</title>
+    <link rel="stylesheet" href="/components/item/index.css" />
+    <link rel="stylesheet" href="/components/header/index.css" />
+    <link rel="stylesheet" href="/pages/board/create/index.css" />
+
+    <!-- JS 모듈 로드 -->
+    <script type="module" src="/utils/loadComponent.js" defer></script>
+    <script type="module" src="/api/api.js" defer></script>
+    <script type="module" src="/pages/board/create/index.js" defer></script>
+  </head>
+  <body>
+    <!-- 헤더 삽입될 위치 -->
+    <header id="header"></header>
+
+    <main class="form-container">
+      <h2 class="form-title">게시글 작성</h2>
+
+      <form id="post-form">
+        <!-- 제목 -->
+        <div class="form-group">
+          <label for="post-title">제목*</label>
+          <input
+            type="text"
+            id="post-title"
+            class="form-input"
+            name="title"
+            placeholder="제목을 입력해주세요. (최대 26글자)"
+            maxlength="26"
+            required
+          />
+        </div>
+
+        <!-- 내용 -->
+        <div class="form-group">
+          <label for="post-content">내용*</label>
+          <textarea
+            id="post-content"
+            class="form-input"
+            name="content"
+            rows="10"
+            placeholder="내용을 입력해주세요."
+            required
+          ></textarea>
+          <p class="helper-text error" id="form-helper-text"></p>
+        </div>
+
+        <!-- 이미지 첨부 -->
+        <div class="form-group">
+          <label for="post-image">이미지</label>
+          <div class="file-upload-wrapper">
+            <input type="file" id="post-image" name="image" accept="image/*" />
+            <label for="post-image" class="file-upload-button">파일 선택</label>
+            <span class="file-upload-name">파일을 선택해주세요.</span>
+          </div>
+        </div>
+
+        <!-- 완료 버튼 -->
+        <div class="form-actions">
+          <button type="button" id="submit-button" class="form-button" disabled>
+            완료
+          </button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>

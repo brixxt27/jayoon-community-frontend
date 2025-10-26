@@ -1,0 +1,102 @@
+/* 폼 컨테이너 */
+.form-container {
+  max-width: 768px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.form-title {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* 폼 그룹 */
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-color, #333); /* item.css 변수 사용, 없을 경우 대비 */
+}
+
+/* .form-input 스타일은 /components/item/index.css 에서 관리합니다.
+  이 파일에서는 textarea의 최소 높이 등 세부 사항만 지정합니다.
+*/
+.form-group textarea.form-input {
+  resize: vertical; /* 세로 크기만 조절 가능 */
+  min-height: 200px;
+}
+
+/* 헬퍼 텍스트 */
+.helper-text {
+  font-size: 13px;
+  margin-top: 8px;
+  display: none; /* 기본 숨김 */
+}
+
+.helper-text.error {
+  color: var(--error-color, #e53e3e); /* item.css 변수 사용, 없을 경우 대비 */
+  display: block; /* 에러 시 보임 (JS로 제어) */
+  visibility: hidden; /* JS로 visibility: visible 처리 */
+}
+
+/* 파일 업로드 */
+.file-upload-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 실제 파일 input은 숨김 */
+.file-upload-wrapper input[type='file'] {
+  display: none;
+}
+
+/* 커스텀 파일 선택 버튼 */
+.file-upload-button {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #f4f4f5;
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-color, #333);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.file-upload-button:hover {
+  background-color: #e9e9ed;
+}
+
+/* 선택된 파일 이름 */
+.file-upload-name {
+  font-size: 14px;
+  color: var(--text-light-color, #666);
+  /* 파일 이름이 길어질 경우 대비 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 폼 제출 버튼 */
+.form-actions {
+  text-align: right;
+  margin-top: 30px;
+}
+
+/*
+  #submit-button의 기본 스타일 및 :disabled, :hover 상태는
+  .form-button 클래스를 통해 /components/item/index.css 에서 관리됩니다.
+  페이지별 커스텀이 필요할 경우 여기에 추가합니다.
+*/
