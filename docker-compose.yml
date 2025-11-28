@@ -1,0 +1,9 @@
+# docker-compose.yml
+services:
+  frontend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: fe-app
+    ports:
+      - '3000:3000'
