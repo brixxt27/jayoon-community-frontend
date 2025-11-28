@@ -1,6 +1,6 @@
 import { loadComponent } from '/utils/loadComponent.js';
 import { initHeader } from '/components/header/index.js';
-import { login } from '/api/api.js';
+import { login } from '/apis/api.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   // 헤더 로드

@@ -1,4 +1,4 @@
-import { getPreSignedUrl, uploadFileToUrl, signupWithUrl } from '/api/api.js';
+import { getPreSignedUrl, uploadFileToUrl, signupWithUrl } from '/apis/api.js';
 import { loadComponent } from '/utils/loadComponent.js';
 import { initHeader } from '/components/header/index.js';
 // todo: import 절대경로로 수정 가능?

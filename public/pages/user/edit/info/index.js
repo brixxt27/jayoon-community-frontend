@@ -1,6 +1,6 @@
 import { loadComponent } from '/utils/loadComponent.js';
 import { initHeader } from '/components/header/index.js';
-// import { getUserInfo, updateUserInfo, deleteUser } from '/api/api.js';
+// import { getUserInfo, updateUserInfo, deleteUser } from '/apis/api.js';
 
 // --- 전역 상태 ---
 let newProfileImageFile = null; // 새로 선택된 프로필 이미지 파일

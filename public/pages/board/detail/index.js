@@ -8,7 +8,7 @@ import { initHeader } from '/components/header/index.js';
 //   updateComment,
 //   deleteComment,
 //   deletePost,
-// } from '/api/api.js';
+// } from '/apis/api.js';
 
 // --- 전역 상태 변수 ---
 let postId = null; // 현재 게시글 ID

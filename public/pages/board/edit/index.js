@@ -1,6 +1,6 @@
 import { loadComponent } from '/utils/loadComponent.js';
 import { initHeader } from '/components/header/index.js';
-// import { getPostDetail, updatePost } from '/api/api.js'; // API 연결 시 주석 해제
+// import { getPostDetail, updatePost } from '/apis/api.js'; // API 연결 시 주석 해제
 
 // 페이지 로드 시 공통 컴포넌트 삽입 및 데이터 로드
 document.addEventListener('DOMContentLoaded', async () => {
