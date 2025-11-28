@@ -1,6 +1,6 @@
 # docker-compose.yml
 services:
-  frontend:
+  fe-app:
     image: jayoon7/fe-image:latest
     container_name: fe-app
     ports:
