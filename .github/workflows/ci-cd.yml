@@ -10,7 +10,6 @@ on:
 
 jobs:
   build-and-push-image:
-    needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
 
@@ -23,8 +22,8 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
       - name: Build and Push Docker Image
         run: |
-          docker build --platform linux/amd64 -t ${{ secrets.DOCKER_USERNAME }}/express-hello-world:latest .
-          docker push ${{ secrets.DOCKER_USERNAME }}/express-hello-world:latest
+          docker build --platform linux/amd64 -t ${{ secrets.DOCKER_USERNAME }}/fe-image:latest .
+          docker push ${{ secrets.DOCKER_USERNAME }}/fe-image:latest
 
   deploy:
     needs: build-and-push-image
