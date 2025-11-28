@@ -5,7 +5,8 @@
  * login, signup 함수 모두 fetch를 사용합니다.
  */
 
-const BASE_URL = 'http://localhost:8080';
+// const BASE_URL = 'http://localhost:8080';
+const BASE_URL = 'http://guidey.site/api';
 
 /**
  * API 호출 후 응답을 처리하는 헬퍼 함수
