@@ -1,4 +1,4 @@
-# docker-compose.yml
+# community-frontend/docker-compose.yml
 services:
   fe-app:
     image: jayoon7/fe-image:latest
