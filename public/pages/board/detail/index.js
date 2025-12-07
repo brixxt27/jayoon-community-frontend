@@ -56,7 +56,6 @@ function closeModal() {
   if (!modalBackdrop) return;
   modalBackdrop.classList.remove('visible');
   document.body.style.overflow = '';
-  currentDeleteCommentId = null;
 }
 
 // --- 데이터 로드 및 렌더링 ---
@@ -289,7 +288,9 @@ function handleCommentEditClick(target) {
 }
 
 function handleCommentDeleteClick(target) {
-  currentDeleteCommentId = target.dataset.commentId;
+  const deleteButton = target.closest('.delete-comment-btn');
+  if (!deleteButton) return;
+  currentDeleteCommentId = deleteButton.dataset.commentId;
   openModal('comment-delete-modal');
 }
 
@@ -382,13 +383,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     .addEventListener('click', handlePostDelete);
   document
     .getElementById('comment-delete-confirm-btn')
-    .addEventListener('click', handleCommentDelete);
-  document.getElementById('comment-list').addEventListener('click', (event) => {
+    .addEventListener('click', () => {
+      handleCommentDelete();
+    });
+
+  const commentList = document.getElementById('comment-list');
+
+  commentList.addEventListener('click', (event) => {
     const target = event.target;
-    if (target.classList.contains('edit-comment-btn'))
-      handleCommentEditClick(target);
-    if (target.classList.contains('delete-comment-btn'))
-      handleCommentDeleteClick(target);
+
+    const editButton = target.closest('.edit-comment-btn');
+    if (editButton) {
+      handleCommentEditClick(editButton);
+      return;
+    }
+
+    const deleteButton = target.closest('.delete-comment-btn');
+    if (deleteButton) {
+      handleCommentDeleteClick(deleteButton);
+      return;
+    }
   });
 
   commentNextCursor = undefined;
