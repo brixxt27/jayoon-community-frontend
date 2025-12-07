@@ -1,6 +1,6 @@
 import { loadComponent } from '/utils/loadComponent.js';
 import { initHeader } from '/components/header/index.js';
-import { updateMyInfo } from '../../apis/api.js';
+import { updateMyInfo } from '/apis/api.js';
 
 // --- 유틸리티 함수 ---
 
