@@ -25,22 +25,35 @@
 
       <!-- 정보 수정 폼 -->
       <form id="password-form">
-        <!-- 비밀번호 -->
+        <!-- 현재 비밀번호 -->
         <div class="form-group">
-          <label for="password-input">비밀번호</label>
+          <label for="current-password-input">현재 비밀번호</label>
           <input
             type="password"
-            id="password-input"
+            id="current-password-input"
             class="form-input"
-            placeholder="비밀번호를 입력하세요"
+            placeholder="현재 비밀번호를 입력하세요"
             required
           />
-          <p class="helper-text error" id="password-helper"></p>
+          <p class="helper-text error" id="current-password-helper"></p>
         </div>
 
-        <!-- 비밀번호 확인 -->
+        <!-- 새 비밀번호 -->
         <div class="form-group">
-          <label for="password-confirm-input">비밀번호 확인</label>
+          <label for="new-password-input">새 비밀번호</label>
+          <input
+            type="password"
+            id="new-password-input"
+            class="form-input"
+            placeholder="새로운 비밀번호를 입력하세요"
+            required
+          />
+          <p class="helper-text error" id="new-password-helper"></p>
+        </div>
+
+        <!-- 새 비밀번호 확인 -->
+        <div class="form-group">
+          <label for="password-confirm-input">새 비밀번호 확인</label>
           <input
             type="password"
             id="password-confirm-input"
