@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     await loadComponent('#header', '/components/header/index.html');
     initHeader({
-      type: 'profile',
       backButton: true,
+      backUrl: '/',
     });
   } catch (error) {
     console.error('헤더 로딩 중 에러 발생:', error);

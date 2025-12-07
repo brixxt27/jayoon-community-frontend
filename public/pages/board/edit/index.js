@@ -26,9 +26,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     await loadComponent('#header', '/components/header/index.html');
     initHeader({
-      profile: true,
       backButton: true,
-      backUrl: boardDetailUrl,
+      backUrl: `/pages/board/detail/?id=${postId}`,
     });
   } catch (error) {
     console.error('헤더 로딩 중 에러 발생:', error);

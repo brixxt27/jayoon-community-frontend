@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     await loadComponent('#header', '/components/header/index.html');
     initHeader({
-      profile: true,
       backButton: true,
       backUrl: '/pages/user/edit/info/',
     });

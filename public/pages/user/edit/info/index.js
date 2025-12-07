@@ -151,7 +151,7 @@ async function handleSubmit() {
 
         newProfileImageFile = null;
 
-        initHeader({ profile: true, backButton: true, backUrl: '/'});
+        initHeader({ backButton: true, backUrl: '/'});
 
         
 
@@ -197,7 +197,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     await loadComponent('#header', '/components/header/index.html');
     initHeader({
-      profile: true,
       backButton: true,
       backUrl: '/index.html',
     });

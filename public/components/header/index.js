@@ -5,19 +5,21 @@ const DEFAULT_PROFILE_IMAGE = '/assets/images/default-profile.png';
 /**
  * @param {object} options
  * @param {boolean} [options.backButton] - 뒤로가기 버튼 표시 여부
- * @param {boolean} [options.profile] - 프로필 섹션 표시 여부
  * @param {string} [options.backUrl] - (type 'backButton'일 때) 뒤로가기 URL
  */
-export function initHeader(options = { backButton: false, profile: false }) {
-  const { backButton, profile, backUrl } = options;
+export function initHeader(options = { backButton: false }) {
+  const { backButton, backUrl } = options;
   const backButtonEl = document.getElementById('header-back-button');
   const profileContainer = document.getElementById('header-profile-container');
+  const loginContainer = document.getElementById('header-login-container');
+  const loginButton = document.getElementById('login-button');
 
-  if (!backButtonEl || !profileContainer) {
-    console.error('헤더의 필수 요소(뒤로가기, 프로필)를 찾을 수 없습니다.');
+  if (!backButtonEl || !profileContainer || !loginContainer || !loginButton) {
+    console.error('헤더의 필수 요소 중 일부를 찾을 수 없습니다.');
     return;
   }
 
+  // 뒤로가기 버튼 처리
   if (backButton) {
     backButtonEl.style.visibility = 'visible';
     if (backUrl) {
@@ -28,14 +30,21 @@ export function initHeader(options = { backButton: false, profile: false }) {
         window.history.back();
       });
     }
+  } else {
+    backButtonEl.style.visibility = 'hidden';
   }
 
-  // 로그인 상태를 확인하여 프로필 섹션 표시 여부 결정
-  if (profile && checkLoginStatus()) {
+  // 로그인 상태에 따른 프로필/로그인 버튼 표시
+  if (checkLoginStatus()) {
     profileContainer.style.visibility = 'visible';
+    loginContainer.style.visibility = 'hidden';
     setupProfileSection();
   } else {
     profileContainer.style.visibility = 'hidden';
+    loginContainer.style.visibility = 'visible';
+    loginButton.addEventListener('click', () => {
+      window.location.href = '/pages/login/';
+    });
   }
 }
 
