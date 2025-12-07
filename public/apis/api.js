@@ -116,10 +116,13 @@ export async function apiClient(endpoint, options = {}) {
 
 /**
  * [Fetch] 로그인 API
+ * 중요: credentials: 'include'를 명시해야 Set-Cookie 응답이 쿠키로 저장됩니다.
+ * CORS 요청에서 쿠키를 받기 위해 필수입니다.
  */
 export const login = async (email, password) => {
   const response = await fetch(`${BASE_URL}/auth`, {
     method: 'POST',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
     },
