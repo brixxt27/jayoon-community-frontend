@@ -308,9 +308,14 @@ async function handleSubmit(event) {
 
   // --- 2. 회원가입 요청 ---
   try {
-    await signupWithUrl(email, password, nickname, profileImageUrl);
+    const responseData = await signupWithUrl(
+      email,
+      password,
+      nickname,
+      profileImageUrl,
+    );
 
-    // 회원가입 성공 시 서버가 쿠키에 토큰을 담아주므로 클라이언트는 바로 리다이렉트
+    sessionStorage.setItem('user', JSON.stringify(responseData.data));
     location.href = '/';
   } catch (error) {
     console.error('회원가입 실패:', error);

@@ -206,6 +206,8 @@ export async function uploadFileToUrl(url, file, contentType) {
 
 /**
  * 3. [Fetch] 회원가입 (이미지 URL 전송)
+ * 중요: credentials: 'include'를 명시해야 Set-Cookie 응답이 쿠키로 저장됩니다.
+ * CORS 요청에서 쿠키를 받기 위해 필수입니다.
  */
 export async function signupWithUrl(
   email,
@@ -215,6 +217,7 @@ export async function signupWithUrl(
 ) {
   const response = await fetch(`${BASE_URL}/users`, {
     method: 'POST',
+    credentials: 'include', // 쿠키 포함을 위해 필수
     headers: {
       'Content-Type': 'application/json',
     },
