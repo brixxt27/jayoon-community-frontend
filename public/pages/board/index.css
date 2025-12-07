@@ -59,7 +59,9 @@ body {
   border: 1px solid #dee2e6;
   border-radius: 8px;
   padding: 1.25rem;
-  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+  transition:
+    box-shadow 0.2s ease-in-out,
+    transform 0.2s ease-in-out;
   cursor: pointer;
   display: flex;
   flex-direction: column;

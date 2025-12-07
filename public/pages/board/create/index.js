@@ -92,7 +92,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       // 3. 성공 시 상세 페이지로 이동
       alert('게시글이 성공적으로 작성되었습니다.');
       window.location.href = `/pages/board/detail/index.html?id=${newPost.id}`;
-
     } catch (error) {
       console.error('게시글 작성 실패:', error);
       helperText.textContent = `오류가 발생했습니다: ${error.message}`;

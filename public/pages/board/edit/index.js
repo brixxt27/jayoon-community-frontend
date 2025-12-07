@@ -54,17 +54,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         location.href = boardDetailUrl;
         return;
       }
-      
+
       titleInput.value = post.title;
       contentInput.value = post.body;
-      
+
       if (post.imageUrls && post.imageUrls.length > 0) {
         const imageName = post.imageUrls[0].split('/').pop();
         fileNameSpan.textContent = `기존 이미지: ${imageName}`;
       } else {
         fileNameSpan.textContent = '기존 이미지가 없습니다.';
       }
-      
+
       submitButton.disabled = false;
     } catch (error) {
       console.error('게시물 조회 실패:', error);

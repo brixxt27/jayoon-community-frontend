@@ -9,7 +9,9 @@ h1 {
   width: 100%;
   background-color: #ffffff;
   padding: 1rem 1.5rem; /* 16px 24px */
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
   position: fixed; /* 헤더를 상단에 고정 */
   top: 0;
   left: 0;

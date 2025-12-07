@@ -33,12 +33,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // 2. DOM 요소 캐싱
   const passwordForm = document.getElementById('password-form');
-  const currentPasswordInput = document.getElementById('current-password-input');
+  const currentPasswordInput = document.getElementById(
+    'current-password-input',
+  );
   const newPasswordInput = document.getElementById('new-password-input');
-  const passwordConfirmInput = document.getElementById('password-confirm-input');
-  const currentPasswordHelper = document.getElementById('current-password-helper');
+  const passwordConfirmInput = document.getElementById(
+    'password-confirm-input',
+  );
+  const currentPasswordHelper = document.getElementById(
+    'current-password-helper',
+  );
   const newPasswordHelper = document.getElementById('new-password-helper');
-  const passwordConfirmHelper = document.getElementById('password-confirm-helper');
+  const passwordConfirmHelper = document.getElementById(
+    'password-confirm-helper',
+  );
   const submitButton = document.getElementById('submit-button');
 
   // 3. 유효성 검사 및 버튼 활성화 함수
@@ -57,11 +65,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (passwordConfirm.length === 0) isValid = false;
 
     if (isValid && !validateNewPassword(newPassword)) {
-      newPasswordHelper.textContent = '* 8~20자, 대/소문자, 숫자, 특수문자를 포함해야 합니다.';
+      newPasswordHelper.textContent =
+        '* 8~20자, 대/소문자, 숫자, 특수문자를 포함해야 합니다.';
       newPasswordHelper.style.visibility = 'visible';
       isValid = false;
     }
-    
+
     if (isValid && newPassword !== passwordConfirm) {
       passwordConfirmHelper.textContent = '* 새 비밀번호와 다릅니다.';
       passwordConfirmHelper.style.visibility = 'visible';
@@ -89,15 +98,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
       await updateMyInfo({ currentPassword, updatedPassword });
-      
+
       showToast('수정 완료');
       passwordForm.reset();
       validateForm();
-
     } catch (error) {
       console.error('비밀번호 수정 실패:', error);
       if (error.message.includes('비밀번호가 일치하지 않습니다')) {
-        currentPasswordHelper.textContent = '* 현재 비밀번호가 올바르지 않습니다.';
+        currentPasswordHelper.textContent =
+          '* 현재 비밀번호가 올바르지 않습니다.';
         currentPasswordHelper.style.visibility = 'visible';
       } else {
         alert(`비밀번호 수정에 실패했습니다: ${error.message}`);

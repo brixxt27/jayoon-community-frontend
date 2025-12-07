@@ -108,7 +108,9 @@
   z-index: 1000;
   visibility: hidden;
   opacity: 0;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
 }
 
 .modal-backdrop.visible {
@@ -193,7 +195,10 @@
   z-index: 2000;
   visibility: hidden;
   opacity: 0;
-  transition: opacity 0.3s ease, visibility 0.3s ease, bottom 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease,
+    bottom 0.3s ease;
 }
 
 .toast-popup.show {

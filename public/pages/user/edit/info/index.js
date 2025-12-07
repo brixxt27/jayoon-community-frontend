@@ -112,7 +112,7 @@ async function handleSubmit() {
     showToast('변경 사항이 없습니다.');
     return;
   }
-  
+
   submitButton.disabled = true;
   showToast('정보를 수정하는 중...');
 
@@ -137,22 +137,21 @@ async function handleSubmit() {
     // sessionStorage 업데이트
     const updatedUser = { ...currentUser, ...responseData };
     sessionStorage.setItem('user', JSON.stringify(updatedUser));
-    
+
     // 전역 변수 및 헤더 프로필 이미지 즉시 업데이트
     currentUser = updatedUser;
     newProfileImageFile = null;
-    initHeader({ profile: true, backButton: true, backUrl: '/'});
-    
-    showToast('수정이 완료되었습니다.');
+    initHeader({ profile: true, backButton: true, backUrl: '/' });
 
+    showToast('수정이 완료되었습니다.');
   } catch (error) {
     console.error('회원 정보 수정 실패:', error);
     if (error.data?.statusCode === '400') {
-       const helperText = document.getElementById('nickname-helper-text');
-       helperText.textContent = error.message;
-       helperText.style.visibility = 'visible';
+      const helperText = document.getElementById('nickname-helper-text');
+      helperText.textContent = error.message;
+      helperText.style.visibility = 'visible';
     } else {
-       alert(`수정에 실패했습니다: ${error.message}`);
+      alert(`수정에 실패했습니다: ${error.message}`);
     }
   } finally {
     submitButton.disabled = false;

@@ -17,7 +17,7 @@ export function initHeader(options = { backButton: false, profile: false }) {
     console.error('헤더의 필수 요소(뒤로가기, 프로필)를 찾을 수 없습니다.');
     return;
   }
-  
+
   if (backButton) {
     backButtonEl.style.visibility = 'visible';
     if (backUrl) {
