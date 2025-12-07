@@ -71,8 +71,33 @@ h1 {
   visibility: hidden; /* ★ 기본 숨김 (공간은 차지) */
 }
 
+/* 로그인 버튼 컨테이너 */
+#header-login-container {
+  z-index: 10;
+  width: 80px; /* 로그인 버튼 텍스트 고려하여 40px보다 크게 */
+  flex-shrink: 0; /* 줄어들지 않음 */
+  display: flex; /* 내부 버튼 중앙 정렬용 */
+  justify-content: center;
+  align-items: center;
+  visibility: hidden; /* 기본 숨김 (공간은 차지) */
+}
+
+#header-login-container .header-button {
+  padding: 0.5rem 0.8rem; /* 버튼 패딩 */
+  font-size: 0.875rem; /* 버튼 폰트 크기 */
+  background-color: #2196f3; /* 예시 색상 */
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+#header-login-container .header-button:hover {
+  background-color: #1976d2;
+}
+
+
 /* ★ 수정: CSS 충돌을 피하기 위해 선택자 구체화 */
-.profile-container #header-profile-image {
+.profile-container img {
   width: 32px;
   height: 32px;
   border-radius: 50%;
