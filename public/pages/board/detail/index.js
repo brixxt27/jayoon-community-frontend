@@ -171,8 +171,8 @@ async function loadCommentsAndRender(id) {
   isCommentLoading = true;
   try {
     const response = await getComments(id, commentNextCursor);
-    renderComments(response.comments);
-    commentNextCursor = response.nextCursor;
+    renderComments(response.data.comments);
+    commentNextCursor = response.data.nextCursor;
     if (commentNextCursor === null) {
       document.getElementById('infinite-scroll-trigger').style.display = 'none';
     }
