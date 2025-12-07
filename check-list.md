@@ -27,22 +27,23 @@
 
 - [x] GET /posts 게시글 목록 조회
 
-**게시글 상세 페이지**
-
-- [ ] GET /posts/:postId 게시글 상세 조회
-- [ ] DELETE /posts/:postId 게시글 삭제
-- [ ] POST? PUT? /likes 좋아요 생성 또는 삭제
-- [ ] GET /comments 댓글 조회
-- [ ] POST /comments/:commentId 댓글 생성
-- [ ] PUT /comments/:commentId 댓글 수정
-- [ ] DELETE /comments/:commentId 댓글 삭제
-
 **게시글 추가 페이지**
 
-- [ ] GET /images/pre-signed-url Pre-signed URL 조회
-- [ ] POST /posts
+- [x] POST /posts
+  - [ ] 이미지 추가
+
+**게시글 상세 페이지**
+
+- [x] GET /posts/:postId 게시글 상세 조회
+- [x] DELETE /posts/:postId 게시글 삭제
+- [ ] POST /posts/:postId/like 좋아요 생성
+- [ ] DELTE /posts/:postId/like 좋아요 삭제
+- [ ] GET /posts/:postId/comments 댓글 조회
+- [ ] POST /posts/:postId/comments 댓글 생성
+- [ ] PUT /posts/:postId/comments/:commentId 댓글 수정
+- [ ] DELETE /posts/:postId/comments/:commentId 댓글 삭제
 
 **게시글 수정 페이지**
 
-- [ ] GET /images/pre-signed-url Pre-signed URL 조회
-- [ ] PUT /posts/:postId
+- [x] PUT /posts/:postId
+  - [ ] 이미지 추가
