@@ -268,6 +268,17 @@ export const updateMyInfo = async (updatedData) => {
 };
 
 /**
+ * [API Client] 회원 탈퇴
+ * @param {string} password - 사용자 확인을 위한 현재 비밀번호
+ */
+export const deleteUser = async (password) => {
+  return apiClient('/users/me', {
+    method: 'DELETE',
+    body: { password },
+  });
+};
+
+/**
  * [API Client] 게시글 좋아요
  * @param {string | number} postId - 좋아요 할 게시글의 ID
  */

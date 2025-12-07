@@ -4,8 +4,8 @@ import {
   updateMyInfo,
   getPreSignedUrl,
   uploadFileToUrl,
-  // deleteUser,
-} from '../../apis/api.js';
+  deleteUser,
+} from '/apis/api.js';
 
 // --- 전역 상태 ---
 let currentUser = null;
@@ -172,11 +172,24 @@ async function handleSubmit() {
 
 async function handleWithdraw() {
   closeModal();
-  console.log('[Mock] 회원 탈퇴 처리 (API 연동 필요)');
-  // 추후 deleteUser() API 연동
-  // alert('회원 탈퇴가 완료되었습니다.');
-  // sessionStorage.removeItem('user');
-  // window.location.href = '/pages/login/';
+  const password = prompt(
+    '회원 탈퇴를 위해 비밀번호를 입력해주세요. 탈퇴 후에는 복구할 수 없습니다.',
+  );
+
+  if (!password) {
+    alert('비밀번호가 입력되지 않아 탈퇴가 취소되었습니다.');
+    return;
+  }
+
+  try {
+    await deleteUser(password);
+    alert('회원 탈퇴가 완료되었습니다. 이용해주셔서 감사합니다.');
+    sessionStorage.removeItem('user');
+    window.location.href = '/'; // 홈으로 리디렉션
+  } catch (error) {
+    console.error('회원 탈퇴 실패:', error);
+    alert(`회원 탈퇴 중 오류가 발생했습니다: ${error.message}`);
+  }
 }
 
 // --- 페이지 초기화 ---
