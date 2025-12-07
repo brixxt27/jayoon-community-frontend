@@ -1,6 +1,7 @@
 import { loadComponent } from '/utils/loadComponent.js';
 import { initHeader } from '/components/header/index.js';
 import { updateMyInfo, getPreSignedUrl, uploadFileToUrl } from '/apis/api.js';
+import { requireLogin } from '/utils/auth.js';
 
 // --- 전역 상태 ---
 let currentUser = null;
@@ -144,6 +145,9 @@ async function handleWithdraw() {
 
 // --- 페이지 초기화 ---
 document.addEventListener('DOMContentLoaded', async () => {
+  // 로그인 여부 확인
+  if (!requireLogin()) return;
+
   try {
     await loadComponent('#header', '/components/header/index.html');
     initHeader({

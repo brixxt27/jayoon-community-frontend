@@ -1,9 +1,13 @@
 import { loadComponent } from '/utils/loadComponent.js';
 import { initHeader } from '/components/header/index.js';
 import { createPost, getPreSignedUrl, uploadFileToUrl } from '/apis/api.js';
+import { requireLogin } from '/utils/auth.js';
 
 // 페이지 로드 시 공통 컴포넌트 삽입
 document.addEventListener('DOMContentLoaded', async () => {
+  // 로그인 여부 확인
+  if (!requireLogin()) return;
+
   try {
     await loadComponent('#header', '/components/header/index.html');
     initHeader({

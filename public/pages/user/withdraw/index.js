@@ -1,6 +1,7 @@
 import { loadComponent } from '/utils/loadComponent.js';
 import { initHeader } from '/components/header/index.js';
 import { deleteUser } from '/apis/api.js';
+import { requireLogin } from '/utils/auth.js';
 
 // --- 유틸리티 함수 ---
 
@@ -14,6 +15,9 @@ function showToast(message) {
 
 // --- 페이지 초기화 ---
 document.addEventListener('DOMContentLoaded', async () => {
+  // 로그인 여부 확인
+  if (!requireLogin()) return;
+
   // 1. 헤더 로드
   try {
     await loadComponent('#header', '/components/header/index.html');
