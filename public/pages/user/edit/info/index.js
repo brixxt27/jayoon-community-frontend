@@ -131,31 +131,17 @@ async function handleSubmit() {
       updatedData.profileImageUrl = presigned.profileImageUrl;
     }
 
-        // 변경된 데이터만 API로 전송
+    const responseData = await updateMyInfo(updatedData);
+    const updatedUser = { ...currentUser, ...responseData.data };
+    sessionStorage.setItem('user', JSON.stringify(updatedUser));
 
-        const responseData = await updateMyInfo(updatedData);
+    // 전역 변수 및 헤더 프로필 이미지 즉시 업데이트
+    currentUser = updatedUser;
+    newProfileImageFile = null;
 
-    
+    initHeader({ backButton: true, backUrl: '/' });
 
-        // sessionStorage 업데이트
-
-        const updatedUser = { ...currentUser, ...responseData.data };
-
-        sessionStorage.setItem('user', JSON.stringify(updatedUser));
-
-        
-
-        // 전역 변수 및 헤더 프로필 이미지 즉시 업데이트
-
-        currentUser = updatedUser;
-
-        newProfileImageFile = null;
-
-        initHeader({ backButton: true, backUrl: '/'});
-
-        
-
-        showToast('수정이 완료되었습니다.');
+    showToast('수정이 완료되었습니다.');
   } catch (error) {
     console.error('회원 정보 수정 실패:', error);
     if (error.data?.statusCode === '400') {

@@ -62,12 +62,8 @@ function closeModal() {
 // --- 데이터 로드 및 렌더링 ---
 
 async function loadPostAndRender(id) {
-
   try {
-
     const post = (await getPostDetail(id)).data;
-
-
 
     document.getElementById('post-title').textContent = post.title;
 
@@ -237,8 +233,12 @@ async function handleCommentSubmit(event) {
 
   try {
     if (isCommentEditMode) {
-      const updatedComment = (await updateComment(postId, currentEditCommentId, content)).data;
-      const commentContentP = document.querySelector(`[data-comment-content="${currentEditCommentId}"]`);
+      const updatedComment = (
+        await updateComment(postId, currentEditCommentId, content)
+      ).data;
+      const commentContentP = document.querySelector(
+        `[data-comment-content="${currentEditCommentId}"]`,
+      );
       if (commentContentP) {
         commentContentP.innerHTML = updatedComment.body.replace(/\n/g, '<br>');
       }
