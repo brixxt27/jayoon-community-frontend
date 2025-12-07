@@ -1,31 +1,12 @@
 import { loadComponent } from '/utils/loadComponent.js';
 import { initHeader } from '/components/header/index.js';
-import {
-  updateMyInfo,
-  getPreSignedUrl,
-  uploadFileToUrl,
-  deleteUser,
-} from '/apis/api.js';
+import { updateMyInfo, getPreSignedUrl, uploadFileToUrl } from '/apis/api.js';
 
 // --- 전역 상태 ---
 let currentUser = null;
 let newProfileImageFile = null; // 새로 선택된 프로필 이미지 파일
 
 // --- 유틸리티 함수 ---
-
-function openModal(modalId) {
-  const modalBackdrop = document.getElementById('modal-backdrop');
-  const modal = document.getElementById(modalId);
-  modal.style.display = 'block';
-  modalBackdrop.classList.add('visible');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModal() {
-  const modalBackdrop = document.getElementById('modal-backdrop');
-  modalBackdrop.classList.remove('visible');
-  document.body.style.overflow = '';
-}
 
 function showToast(message) {
   const toast = document.getElementById('toast-popup');
@@ -157,25 +138,8 @@ async function handleSubmit() {
 }
 
 async function handleWithdraw() {
-  closeModal();
-  const password = prompt(
-    '회원 탈퇴를 위해 비밀번호를 입력해주세요. 탈퇴 후에는 복구할 수 없습니다.',
-  );
-
-  if (!password) {
-    alert('비밀번호가 입력되지 않아 탈퇴가 취소되었습니다.');
-    return;
-  }
-
-  try {
-    await deleteUser(password);
-    alert('회원 탈퇴가 완료되었습니다. 이용해주셔서 감사합니다.');
-    sessionStorage.removeItem('user');
-    window.location.href = '/'; // 홈으로 리디렉션
-  } catch (error) {
-    console.error('회원 탈퇴 실패:', error);
-    alert(`회원 탈퇴 중 오류가 발생했습니다: ${error.message}`);
-  }
+  // 탈퇴 전용 페이지로 이동
+  window.location.href = '/pages/user/withdraw/';
 }
 
 // --- 페이지 초기화 ---
@@ -193,14 +157,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   const imageInput = document.getElementById('profile-image-input');
   const submitButton = document.getElementById('submit-button');
   const withdrawButton = document.getElementById('withdraw-button');
-  const withdrawCancelBtn = document.getElementById('withdraw-cancel-btn');
-  const withdrawConfirmBtn = document.getElementById('withdraw-confirm-btn');
 
   imageInput.addEventListener('change', handleImagePreview);
   submitButton.addEventListener('click', handleSubmit);
-  withdrawButton.addEventListener('click', () => openModal('withdraw-modal'));
-  withdrawCancelBtn.addEventListener('click', closeModal);
-  withdrawConfirmBtn.addEventListener('click', handleWithdraw);
+  withdrawButton.addEventListener('click', handleWithdraw);
 
   await loadUserInfo();
 });

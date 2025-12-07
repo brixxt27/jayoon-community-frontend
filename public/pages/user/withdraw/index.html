@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원 탈퇴 - 가이드윤의 바른생활</title>
+    <link rel="stylesheet" href="/components/item/index.css" />
+    <link rel="stylesheet" href="/components/header/index.css" />
+    <link rel="stylesheet" href="/pages/user/withdraw/index.css" />
+
+    <script type="module" src="/utils/loadComponent.js" defer></script>
+    <script type="module" src="/apis/api.js" defer></script>
+    <script type="module" src="/pages/user/withdraw/index.js" defer></script>
+  </head>
+  <body>
+    <header id="header"></header>
+
+    <main class="withdraw-container">
+      <div class="withdraw-content">
+        <h2 class="form-title">회원 탈퇴</h2>
+
+        <!-- 경고 메시지 -->
+        <div class="warning-box">
+          <p class="warning-title">⚠️ 주의사항</p>
+          <ul class="warning-list">
+            <li>탈퇴 후에는 계정을 복구할 수 없습니다.</li>
+            <li>작성된 모든 게시글과 댓글이 삭제됩니다.</li>
+            <li>이 작업은 취소할 수 없습니다.</li>
+          </ul>
+        </div>
+
+        <!-- 탈퇴 폼 -->
+        <form id="withdraw-form" class="form">
+          <!-- 현재 비밀번호 -->
+          <div class="form-group">
+            <label for="password-input">비밀번호*</label>
+            <input
+              type="password"
+              id="password-input"
+              class="form-input"
+              placeholder="현재 비밀번호를 입력해주세요."
+              required
+            />
+            <p class="helper-text error" id="password-helper"></p>
+          </div>
+
+          <!-- 탈퇴 확인 체크박스 -->
+          <div class="form-group checkbox-group">
+            <label for="confirm-checkbox" class="checkbox-label">
+              <input type="checkbox" id="confirm-checkbox" />
+              <span>위의 주의사항을 이해했으며, 회원 탈퇴에 동의합니다.</span>
+            </label>
+          </div>
+
+          <!-- 버튼 -->
+          <div class="form-actions">
+            <button
+              type="button"
+              id="cancel-button"
+              class="form-button cancel-button"
+            >
+              취소
+            </button>
+            <button
+              type="button"
+              id="withdraw-button"
+              class="form-button withdraw-button"
+              disabled
+            >
+              회원 탈퇴
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <!-- 토스트 알림 -->
+    <div class="toast-popup" id="toast-popup">알림</div>
+  </body>
+</html>
