@@ -1,6 +1,6 @@
 import { loadComponent } from '/utils/loadComponent.js';
 import { initHeader } from '/components/header/index.js';
-import { getPosts } from '../../apis/api.js';
+import { getPosts } from '/apis/api.js';
 
 // '게시물 목록' 페이지만을 위한 스크립트입니다.
 
