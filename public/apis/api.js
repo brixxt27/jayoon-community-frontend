@@ -5,7 +5,15 @@
  * Access Token 만료 시 자동으로 재발급을 시도합니다.
  */
 
-const BASE_URL = 'http://guidey.site/api';
+const getBaseUrl = () => {
+  const { hostname } = window.location;
+  if (hostname === 'localhost' || hostname === '127.0.0.1') {
+    return 'http://localhost:8080/api';
+  }
+  return 'https://guidey.site/api';
+};
+
+const BASE_URL = getBaseUrl();
 
 /**
  * API 호출 후 응답을 처리하는 헬퍼 함수
@@ -15,14 +23,18 @@ const BASE_URL = 'http://guidey.site/api';
  */
 async function handleResponse(response) {
   if (response.status === 204) {
-    return; // No Content
+    return;
   }
 
   const text = await response.text();
   const data = text ? JSON.parse(text) : {};
 
+  console.log('API Response:', data);
+
   if (!response.ok) {
-    const error = new Error(data.message || 'API 요청 처리 중 에러가 발생했습니다.');
+    const error = new Error(
+      data.message || 'API 요청 처리 중 에러가 발생했습니다.',
+    );
     error.status = response.status;
     error.data = data;
     throw error;
@@ -77,13 +89,19 @@ export async function apiClient(endpoint, options = {}) {
         // 2-1. 토큰 재발급 요청
         await refreshToken();
         console.log('토큰 재발급 성공. 이전 요청을 재시도합니다.');
-        
+
         // 2-2. 원래 요청 재시도
-        const retryResponse = await fetch(`${BASE_URL}${endpoint}`, fetchOptions);
+        const retryResponse = await fetch(
+          `${BASE_URL}${endpoint}`,
+          fetchOptions,
+        );
         return await handleResponse(retryResponse);
       } catch (refreshError) {
         // 3. 토큰 재발급 실패 시 (Refresh Token 만료 등)
-        console.error('토큰 재발급에 실패했습니다. 로그인이 필요합니다.', refreshError);
+        console.error(
+          '토큰 재발급에 실패했습니다. 로그인이 필요합니다.',
+          refreshError,
+        );
         // 로그인 페이지로 리디렉션
         window.location.href = '/pages/login/';
         throw new Error('인증이 만료되었습니다. 다시 로그인해주세요.');
