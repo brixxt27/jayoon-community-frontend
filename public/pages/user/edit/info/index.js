@@ -1,6 +1,6 @@
 import { loadComponent } from '/utils/loadComponent.js';
 import { initHeader } from '/components/header/index.js';
-import { updateMyInfo, getPreSignedUrl, uploadFileToUrl } from '/apis/api.js';
+import { updateMyInfo, uploadImage } from '/apis/api.js';
 import { requireLogin } from '/utils/auth.js';
 
 // --- 전역 상태 ---
@@ -101,16 +101,8 @@ async function handleSubmit() {
   try {
     // 이미지가 변경된 경우, 업로드부터 진행
     if (newProfileImageFile) {
-      const presigned = await getPreSignedUrl(
-        newProfileImageFile.name,
-        newProfileImageFile.type,
-      );
-      await uploadFileToUrl(
-        presigned.preSignedUrl,
-        newProfileImageFile,
-        newProfileImageFile.type,
-      );
-      updatedData.profileImageUrl = presigned.profileImageUrl;
+      const uploadResponse = await uploadImage(newProfileImageFile);
+      updatedData.profileImageUrl = uploadResponse.imageUrl;
     }
 
     const responseData = await updateMyInfo(updatedData);

@@ -140,6 +140,39 @@ export const logout = async () => {
 };
 
 /**
+ * [AWS Lambda] 이미지 업로드
+ * multipart/form-data로 AWS Lambda 엔드포인트에 파일을 업로드합니다.
+ * @param {File} file - 업로드할 파일
+ * @returns {Promise<{imageUrl: string}>} 업로드된 이미지 URL
+ */
+export async function uploadImage(file) {
+  const formData = new FormData();
+  formData.append(file.name, file);
+
+  const response = await fetch(
+    'https://suese6dve0.execute-api.ap-northeast-2.amazonaws.com/upload/profile-image',
+    {
+      method: 'POST',
+      body: formData,
+      // Content-Type: multipart/form-data는 자동으로 설정되므로 명시하면 안됨
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error(`이미지 업로드 실패: ${response.status}`);
+  }
+
+  const data = await handleResponse(response);
+  // 응답 형식: { status: 201, message: "...", data: ["url1", "url2", ...] }
+  // data 배열의 첫 번째 URL을 imageUrl로 반환
+  const imageUrl = data.data && data.data.length > 0 ? data.data[0] : null;
+  if (!imageUrl) {
+    throw new Error('업로드된 이미지 URL을 찾을 수 없습니다.');
+  }
+  return { imageUrl };
+}
+
+/**
  * 1. [Fetch] Pre-signed URL 요청
  */
 export async function getPreSignedUrl(filename, contentType) {

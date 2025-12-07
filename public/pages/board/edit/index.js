@@ -1,6 +1,6 @@
 import { loadComponent } from '/utils/loadComponent.js';
 import { initHeader } from '/components/header/index.js';
-import { getPostDetail, updatePost } from '/apis/api.js';
+import { getPostDetail, updatePost, uploadImage } from '/apis/api.js';
 import { requireLogin } from '/utils/auth.js';
 
 // 페이지 로드 시 공통 컴포넌트 삽입 및 데이터 로드
@@ -93,6 +93,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   };
 
+  // 4-1. 파일 선택 감지
+  const handleFileChange = () => {
+    const file = imageInput.files[0];
+    if (file) {
+      fileNameSpan.textContent = `새 이미지: ${file.name}`;
+    } else {
+      // 파일 선택을 취소한 경우
+      const post = (async () => await getPostDetail(postId))();
+      fileNameSpan.textContent = '파일을 선택해주세요.';
+    }
+  };
+
   // 5. 폼 제출 (수정)
   const handleSubmit = async () => {
     if (!validateForm()) {
@@ -108,10 +120,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     const updatedData = {
       title: titleInput.value.trim(),
       body: contentInput.value.trim(),
-      // imageUrls는 이번 단계에서 제외
     };
 
     try {
+      // 새로운 이미지가 선택된 경우 업로드
+      if (imageInput.files.length > 0) {
+        const imageFile = imageInput.files[0];
+        helperText.textContent = '이미지를 업로드하는 중...';
+        const uploadResponse = await uploadImage(imageFile);
+        updatedData.imageUrls = [uploadResponse.imageUrl];
+      }
+
       await updatePost(postId, updatedData);
       alert('게시글이 성공적으로 수정되었습니다.');
       window.location.href = boardDetailUrl;
@@ -126,6 +145,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // 이벤트 리스너 연결
   titleInput.addEventListener('input', handleInput);
   contentInput.addEventListener('input', handleInput);
+  imageInput.addEventListener('change', handleFileChange);
   submitButton.addEventListener('click', handleSubmit);
   postForm.addEventListener('submit', (e) => e.preventDefault());
 });

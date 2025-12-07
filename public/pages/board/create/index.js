@@ -1,6 +1,6 @@
 import { loadComponent } from '/utils/loadComponent.js';
 import { initHeader } from '/components/header/index.js';
-import { createPost, getPreSignedUrl, uploadFileToUrl } from '/apis/api.js';
+import { createPost, uploadImage } from '/apis/api.js';
 import { requireLogin } from '/utils/auth.js';
 
 // 페이지 로드 시 공통 컴포넌트 삽입
@@ -67,19 +67,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       // 1. 이미지가 있는 경우, 먼저 업로드
       if (imageFile) {
         helperText.textContent = '이미지를 업로드하는 중...';
-        // 1-1. Pre-signed URL 요청
-        const presignedData = await getPreSignedUrl(
-          imageFile.name,
-          imageFile.type,
-        );
-        // 1-2. 실제 파일 업로드
-        await uploadFileToUrl(
-          presignedData.preSignedUrl,
-          imageFile,
-          imageFile.type,
-        );
-        // 1-3. 최종 URL 저장
-        imageUrls.push(presignedData.profileImageUrl);
+        const uploadResponse = await uploadImage(imageFile);
+        imageUrls.push(uploadResponse.imageUrl);
       }
 
       const title = titleInput.value.trim();

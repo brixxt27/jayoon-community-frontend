@@ -1,4 +1,4 @@
-import { getPreSignedUrl, uploadFileToUrl, signupWithUrl } from '/apis/api.js';
+import { uploadImage, signupWithUrl } from '/apis/api.js';
 import { loadComponent } from '/utils/loadComponent.js';
 import { initHeader } from '/components/header/index.js';
 // todo: import 절대경로로 수정 가능?
@@ -295,20 +295,8 @@ async function handleSubmit(event) {
   // --- 1. 이미지 처리 ---
   if (selectedProfileFile) {
     try {
-      const { preSignedUrl, imageUrl } = await getPreSignedUrl(
-        selectedProfileFile.name,
-        selectedProfileFile.type,
-      );
-
-      if (!preSignedUrl || !imageUrl) {
-        throw new Error('백엔드에서 파일 업로드 URL을 받지 못했습니다.');
-      }
-      await uploadFileToUrl(
-        preSignedUrl,
-        selectedProfileFile,
-        selectedProfileFile.type,
-      );
-      profileImageUrl = imageUrl;
+      const response = await uploadImage(selectedProfileFile);
+      profileImageUrl = response.imageUrl;
     } catch (error) {
       console.error('파일 업로드 실패:', error);
       alert(`파일 업로드 중 오류가 발생했습니다: ${error.message}`);
