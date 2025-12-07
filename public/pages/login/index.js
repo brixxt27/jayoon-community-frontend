@@ -89,20 +89,17 @@ document.addEventListener('DOMContentLoaded', async () => {
       try {
         const responseData = await login(emailInput.value, passwordInput.value);
 
-        if (responseData.success) {
-          console.log('로그인 성공: ', responseData);
+        // API 응답의 data 객체를 user 정보로 sessionStorage에 저장
+        sessionStorage.setItem('user', JSON.stringify(responseData));
 
-          sessionStorage.setItem('accessToken', responseData.data.accessToken);
-          sessionStorage.setItem('user', JSON.stringify(responseData.data));
-
-          window.location.href = '/';
-        } else {
-          passwordError.textContent =
-            responseData.message || '로그인에 실패했습니다.';
-        }
+        // 로그인 성공 후 메인 페이지로 이동
+        window.location.href = '/';
+        
       } catch (error) {
         console.error('로그인 실패:', error);
-        showLoginFailureError();
+        // API Client에서 던진 에러 메시지를 사용하거나, 일반적인 메시지 표시
+        passwordError.textContent =
+          error.data?.message || '아이디 또는 비밀번호를 확인해주세요.';
       }
     }
   });
