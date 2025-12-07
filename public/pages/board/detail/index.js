@@ -62,8 +62,13 @@ function closeModal() {
 // --- 데이터 로드 및 렌더링 ---
 
 async function loadPostAndRender(id) {
+
   try {
-    const post = await getPostDetail(id);
+
+    const post = (await getPostDetail(id)).data;
+
+
+
     document.getElementById('post-title').textContent = post.title;
 
     const metaContainer = document.getElementById('post-meta');
@@ -232,19 +237,13 @@ async function handleCommentSubmit(event) {
 
   try {
     if (isCommentEditMode) {
-      const updatedComment = await updateComment(
-        postId,
-        currentEditCommentId,
-        content,
-      );
-      const commentContentP = document.querySelector(
-        `[data-comment-content="${currentEditCommentId}"]`,
-      );
+      const updatedComment = (await updateComment(postId, currentEditCommentId, content)).data;
+      const commentContentP = document.querySelector(`[data-comment-content="${currentEditCommentId}"]`);
       if (commentContentP) {
         commentContentP.innerHTML = updatedComment.body.replace(/\n/g, '<br>');
       }
     } else {
-      const newComment = await createComment(postId, content);
+      const newComment = (await createComment(postId, content)).data;
       renderComments([newComment], false); // Prepend new comment
       const commentCountSpan = document.getElementById('comment-count');
       const currentCount = parseInt(commentCountSpan.dataset.rawCount || '0');

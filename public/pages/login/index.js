@@ -90,10 +90,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         const responseData = await login(emailInput.value, passwordInput.value);
 
         // API 응답의 data 객체를 user 정보로 sessionStorage에 저장
-        sessionStorage.setItem('user', JSON.stringify(responseData));
+        sessionStorage.setItem('user', JSON.stringify(responseData.data));
 
         // 로그인 성공 후 메인 페이지로 이동
         window.location.href = '/';
+        
       } catch (error) {
         console.error('로그인 실패:', error);
         // API Client에서 던진 에러 메시지를 사용하거나, 일반적인 메시지 표시

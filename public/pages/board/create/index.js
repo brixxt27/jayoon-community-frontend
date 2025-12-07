@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // 2. 게시글 생성 API 호출
       helperText.textContent = '게시글을 등록하는 중...';
-      const newPost = await createPost(title, content, imageUrls);
+      const newPost = (await createPost(title, content, imageUrls)).data;
 
       // 3. 성공 시 상세 페이지로 이동
       alert('게시글이 성공적으로 작성되었습니다.');

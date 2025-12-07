@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // 2. 기존 게시물 데이터 로드 및 폼 채우기
   const loadPostData = async () => {
     try {
-      const post = await getPostDetail(postId);
+      const post = (await getPostDetail(postId)).data;
 
       // 본인 글이 아니면 수정 권한이 없으므로 리디렉션
       if (!post.isAuthor) {
