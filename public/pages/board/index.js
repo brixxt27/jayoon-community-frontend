@@ -76,12 +76,11 @@ async function loadPosts() {
   loader.style.display = 'block';
 
   try {
-    // 실제 API 호출
     const responseData = await getPosts(nextCursor, LIMIT);
 
-    const { posts, nextCursor: newNextCursor } = responseData;
+    const { posts, nextCursor: newNextCursor } = responseData.data;
     renderPostList(posts);
-    nextCursor = newNextCursor; // 다음 커서 업데이트
+    nextCursor = newNextCursor;
 
     if (nextCursor === null) {
       console.log('모든 게시물을 로드했습니다.');
@@ -99,16 +98,12 @@ async function loadPosts() {
   }
 }
 
-
 /**
  * 5. 게시물 목록을 DOM에 렌더링
  * @param {Array} posts - API로부터 받은 게시물 배열
  */
 function renderPostList(posts) {
-  if (
-    posts.length === 0 &&
-    postListContainer.children.length === 0
-  ) {
+  if (posts.length === 0 && postListContainer.children.length === 0) {
     postListContainer.innerHTML =
       '<p style="text-align: center;">표시할 게시물이 없습니다.</p>';
     return;
