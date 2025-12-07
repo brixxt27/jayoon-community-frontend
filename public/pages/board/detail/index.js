@@ -9,7 +9,7 @@ import {
   createComment,
   updateComment,
   deleteComment,
-} from '../../apis/api.js';
+} from '/apis/api.js';
 
 // --- 전역 상태 변수 ---
 let postId = null;
@@ -43,7 +43,9 @@ function openModal(modalId) {
   const modalBackdrop = document.getElementById('modal-backdrop');
   const modal = document.getElementById(modalId);
   if (!modalBackdrop || !modal) return;
-  document.querySelectorAll('.modal-content').forEach((m) => (m.style.display = 'none'));
+  document
+    .querySelectorAll('.modal-content')
+    .forEach((m) => (m.style.display = 'none'));
   modal.style.display = 'block';
   modalBackdrop.classList.add('visible');
   document.body.style.overflow = 'hidden';
@@ -72,28 +74,40 @@ async function loadPostAndRender(id) {
     `;
 
     if (post.isAuthor) {
-      const actionsContainer = document.getElementById('post-actions-container');
+      const actionsContainer = document.getElementById(
+        'post-actions-container',
+      );
       actionsContainer.innerHTML = `
         <button class="post-action-btn" id="edit-post-btn">수정</button>
         <button class="post-action-btn" id="delete-post-btn">삭제</button>
       `;
-      document.getElementById('edit-post-btn').addEventListener('click', handlePostEdit);
-      document.getElementById('delete-post-btn').addEventListener('click', () => openModal('post-delete-modal'));
+      document
+        .getElementById('edit-post-btn')
+        .addEventListener('click', handlePostEdit);
+      document
+        .getElementById('delete-post-btn')
+        .addEventListener('click', () => openModal('post-delete-modal'));
     }
 
     if (post.imageUrls && post.imageUrls.length > 0) {
       const imageWrapper = document.getElementById('post-image-wrapper');
-      imageWrapper.innerHTML = post.imageUrls.map(url => `<img src="${url}" alt="게시글 이미지">`).join('');
+      imageWrapper.innerHTML = post.imageUrls
+        .map((url) => `<img src="${url}" alt="게시글 이미지">`)
+        .join('');
     }
 
     document.getElementById('post-content').textContent = post.body;
     updateLikeButton(post.isLiked, post.likeCount);
-    document.getElementById('view-count').textContent = formatCount(post.viewCount);
-    document.getElementById('comment-count').textContent = formatCount(post.commentCount);
+    document.getElementById('view-count').textContent = formatCount(
+      post.viewCount,
+    );
+    document.getElementById('comment-count').textContent = formatCount(
+      post.commentCount,
+    );
   } catch (error) {
     console.error('게시글 로드 실패:', error);
-    alert('게시글을 불러오는 데 실패했습니다.');
-    window.location.href = '/';
+    // alert('게시글을 불러오는 데 실패했습니다.');
+    // window.location.href = '/';
   }
 }
 
@@ -136,7 +150,9 @@ function renderComments(comments, append = true) {
   }
 
   const fragment = document.createDocumentFragment();
-  comments.forEach((comment) => fragment.appendChild(createCommentElement(comment)));
+  comments.forEach((comment) =>
+    fragment.appendChild(createCommentElement(comment)),
+  );
 
   if (append) {
     commentList.appendChild(fragment);
@@ -146,7 +162,11 @@ function renderComments(comments, append = true) {
 }
 
 async function loadCommentsAndRender(id) {
-  if (isCommentLoading || (commentNextCursor === null && commentNextCursor !== undefined)) return;
+  if (
+    isCommentLoading ||
+    (commentNextCursor === null && commentNextCursor !== undefined)
+  )
+    return;
   isCommentLoading = true;
   try {
     const response = await getComments(id, commentNextCursor);
@@ -175,11 +195,18 @@ function updateLikeButton(isLiked, count) {
 async function handleLikeClick() {
   const likeButton = document.getElementById('like-button');
   const isLiked = likeButton.classList.contains('active');
-  const originalCount = parseInt(likeButton.nextElementSibling.dataset.rawCount || '0');
+  const originalCount = parseInt(
+    likeButton.nextElementSibling.dataset.rawCount || '0',
+  );
   const newLikedState = !isLiked;
-  updateLikeButton(newLikedState, newLikedState ? originalCount + 1 : originalCount - 1);
+  updateLikeButton(
+    newLikedState,
+    newLikedState ? originalCount + 1 : originalCount - 1,
+  );
   try {
-    const response = newLikedState ? await likePost(postId) : await unlikePost(postId);
+    const response = newLikedState
+      ? await likePost(postId)
+      : await unlikePost(postId);
     updateLikeButton(newLikedState, response.likeCount);
   } catch (error) {
     console.error('좋아요 처리 실패:', error);
@@ -205,8 +232,14 @@ async function handleCommentSubmit(event) {
 
   try {
     if (isCommentEditMode) {
-      const updatedComment = await updateComment(postId, currentEditCommentId, content);
-      const commentContentP = document.querySelector(`[data-comment-content="${currentEditCommentId}"]`);
+      const updatedComment = await updateComment(
+        postId,
+        currentEditCommentId,
+        content,
+      );
+      const commentContentP = document.querySelector(
+        `[data-comment-content="${currentEditCommentId}"]`,
+      );
       if (commentContentP) {
         commentContentP.innerHTML = updatedComment.body.replace(/\n/g, '<br>');
       }
@@ -240,7 +273,9 @@ function resetCommentForm() {
 
 function handleCommentEditClick(target) {
   const commentId = target.dataset.commentId;
-  const contentP = document.querySelector(`[data-comment-content="${commentId}"]`);
+  const contentP = document.querySelector(
+    `[data-comment-content="${commentId}"]`,
+  );
   if (!contentP) return;
 
   const content = contentP.innerHTML.replace(/<br\s*\/?>/gi, '\n');
@@ -277,7 +312,9 @@ async function handleCommentDelete() {
   closeModal();
   try {
     await deleteComment(postId, currentDeleteCommentId);
-    const commentLi = document.getElementById(`comment-${currentDeleteCommentId}`);
+    const commentLi = document.getElementById(
+      `comment-${currentDeleteCommentId}`,
+    );
     if (commentLi) commentLi.remove();
 
     const commentCountSpan = document.getElementById('comment-count');
@@ -327,17 +364,33 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.error('헤더 로딩 중 에러 발생:', error);
   }
 
-  document.getElementById('like-button').addEventListener('click', handleLikeClick);
-  document.getElementById('comment-input').addEventListener('input', handleCommentInput);
-  document.getElementById('comment-form').addEventListener('submit', handleCommentSubmit);
-  document.getElementById('post-delete-cancel-btn').addEventListener('click', closeModal);
-  document.getElementById('comment-delete-cancel-btn').addEventListener('click', closeModal);
-  document.getElementById('post-delete-confirm-btn').addEventListener('click', handlePostDelete);
-  document.getElementById('comment-delete-confirm-btn').addEventListener('click', handleCommentDelete);
+  document
+    .getElementById('like-button')
+    .addEventListener('click', handleLikeClick);
+  document
+    .getElementById('comment-input')
+    .addEventListener('input', handleCommentInput);
+  document
+    .getElementById('comment-form')
+    .addEventListener('submit', handleCommentSubmit);
+  document
+    .getElementById('post-delete-cancel-btn')
+    .addEventListener('click', closeModal);
+  document
+    .getElementById('comment-delete-cancel-btn')
+    .addEventListener('click', closeModal);
+  document
+    .getElementById('post-delete-confirm-btn')
+    .addEventListener('click', handlePostDelete);
+  document
+    .getElementById('comment-delete-confirm-btn')
+    .addEventListener('click', handleCommentDelete);
   document.getElementById('comment-list').addEventListener('click', (event) => {
     const target = event.target;
-    if (target.classList.contains('edit-comment-btn')) handleCommentEditClick(target);
-    if (target.classList.contains('delete-comment-btn')) handleCommentDeleteClick(target);
+    if (target.classList.contains('edit-comment-btn'))
+      handleCommentEditClick(target);
+    if (target.classList.contains('delete-comment-btn'))
+      handleCommentDeleteClick(target);
   });
 
   commentNextCursor = undefined;
