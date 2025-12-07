@@ -311,7 +311,6 @@ async function handleSubmit(event) {
       profileImageUrl = imageUrl;
     } catch (error) {
       console.error('파일 업로드 실패:', error);
-      // [수정] alert 대신 helper-text 사용 고려 (일단 alert 유지)
       alert(`파일 업로드 중 오류가 발생했습니다: ${error.message}`);
       signupButton.disabled = false;
       signupButton.textContent = '회원가입';
@@ -321,28 +320,9 @@ async function handleSubmit(event) {
 
   // --- 2. 회원가입 요청 ---
   try {
-    const response = await signupWithUrl(
-      email,
-      password,
-      nickname,
-      profileImageUrl,
-    );
-    const data = response.data;
-    const token = {
-      userId: data?.userId,
-      tokenType: data?.tokenType,
-      accessToken: data?.accessToken,
-      expiresIn: data?.expiresIn,
-    };
-    if (!token || !token.accessToken) {
-      throw new Error('회원가입은 성공했으나 토큰을 받지 못했습니다.');
-    }
-    console.log('받은 토큰:', token);
+    await signupWithUrl(email, password, nickname, profileImageUrl);
 
-    localStorage.setItem('token', token);
-    console.log('회원가입 성공:', response);
-    // alert("회원가입에 성공했습니다! 메인 페이지로 이동합니다.");
-    // UX를 위해 alert가 아닌 다른 것으로 대체하자.
+    // 회원가입 성공 시 서버가 쿠키에 토큰을 담아주므로 클라이언트는 바로 리다이렉트
     location.href = '/';
   } catch (error) {
     console.error('회원가입 실패:', error);
