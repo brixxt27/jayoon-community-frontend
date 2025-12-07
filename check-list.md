@@ -36,8 +36,8 @@
 
 - [x] GET /posts/:postId 게시글 상세 조회
 - [x] DELETE /posts/:postId 게시글 삭제
-- [ ] POST /posts/:postId/like 좋아요 생성
-- [ ] DELTE /posts/:postId/like 좋아요 삭제
+- [x] POST /posts/:postId/like 좋아요 생성
+- [x] DELTE /posts/:postId/like 좋아요 삭제
 - [ ] GET /posts/:postId/comments 댓글 조회
 - [ ] POST /posts/:postId/comments 댓글 생성
 - [ ] PUT /posts/:postId/comments/:commentId 댓글 수정

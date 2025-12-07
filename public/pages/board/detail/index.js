@@ -196,9 +196,8 @@ function updateLikeButton(isLiked, count) {
 async function handleLikeClick() {
   const likeButton = document.getElementById('like-button');
   const isLiked = likeButton.classList.contains('active');
-  const originalCount = parseInt(
-    likeButton.nextElementSibling.dataset.rawCount || '0',
-  );
+  const likeCountSpan = document.getElementById('like-count');
+  const originalCount = parseInt(likeCountSpan.dataset.rawCount || '0');
   const newLikedState = !isLiked;
   updateLikeButton(
     newLikedState,
@@ -208,7 +207,7 @@ async function handleLikeClick() {
     const response = newLikedState
       ? await likePost(postId)
       : await unlikePost(postId);
-    updateLikeButton(newLikedState, response.likeCount);
+    updateLikeButton(newLikedState, response.data.likeCount);
   } catch (error) {
     console.error('좋아요 처리 실패:', error);
     updateLikeButton(isLiked, originalCount);
