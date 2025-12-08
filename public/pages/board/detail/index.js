@@ -92,7 +92,7 @@ async function loadPostAndRender(id) {
     if (post.imageUrls && post.imageUrls.length > 0) {
       const imageWrapper = document.getElementById('post-image-wrapper');
       imageWrapper.innerHTML = post.imageUrls
-        .map((url) => `<img src="${url}" alt="게시글 이미지">`)
+        .map((image) => `<img src="${image.imageUrl}" alt="게시글 이미지">`)
         .join('');
     }
 
