@@ -62,7 +62,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       contentInput.value = post.body;
 
       if (post.imageUrls && post.imageUrls.length > 0) {
-        const imageName = post.imageUrls[0].split('/').pop();
+        const imageUrl = post.imageUrls[0].imageUrl;
+        const imageName = imageUrl.split('/').pop();
         fileNameSpan.textContent = `기존 이미지: ${imageName}`;
       } else {
         fileNameSpan.textContent = '기존 이미지가 없습니다.';
