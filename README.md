@@ -19,6 +19,10 @@
 
 - <a href="https://github.com/brixxt27/jayoon-community-backend">Back-end Github</a>
 
+### 서비스 시연 영상
+
+- [Youtube](https://youtu.be/vhrRLNeYxgQ)
+
 ## 서비스 화면
 
 `홈`
