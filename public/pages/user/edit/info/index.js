@@ -80,16 +80,10 @@ async function handleSubmit() {
   if (!validateNickname(nickname)) return;
 
   const updatedData = {};
-  // 닉네임이 변경되었는지 확인
   if (nickname !== currentUser.nickname) {
     updatedData.nickname = nickname;
   }
-  // 새 프로필 이미지가 있는지 확인
-  if (newProfileImageFile) {
-    // 이미지 업로드 로직 추가
-  }
 
-  // 변경 사항이 없으면 API 호출 안 함
   if (Object.keys(updatedData).length === 0 && !newProfileImageFile) {
     showToast('변경 사항이 없습니다.');
     return;
@@ -109,11 +103,11 @@ async function handleSubmit() {
     const updatedUser = { ...currentUser, ...responseData.data };
     sessionStorage.setItem('user', JSON.stringify(updatedUser));
 
-    // 전역 변수 및 헤더 프로필 이미지 즉시 업데이트
     currentUser = updatedUser;
     newProfileImageFile = null;
 
-    initHeader({ backButton: true, backUrl: '/' });
+    await loadComponent('#header', '/components/header/index.html');
+    initHeader({ backButton: true, backUrl: '/index.html' });
 
     showToast('수정이 완료되었습니다.');
   } catch (error) {
