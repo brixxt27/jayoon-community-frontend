@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "/utils/*": ["public/utils/*"],
+      "/apis/*": ["public/apis/*"],
+      "/components/*": ["public/components/*"],
+      "/pages/*": ["public/pages/*"],
+      "/assets/*": ["public/assets/*"]
+    },
+    "target": "ES2020",
+    "module": "ES2020",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "strict": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["public/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
